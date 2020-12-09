@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="早几年了解过HTTP请求，今天从CTF的角度上去看了一下请求中存在的漏洞。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20201209学习日记---Csrf">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/09/20201209%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Favorhau">
+<meta property="og:description" content="早几年了解过HTTP请求，今天从CTF的角度上去看了一下请求中存在的漏洞。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/09/rCRf54.png">
+<meta property="article:published_time" content="2020-12-09T11:28:26.000Z">
+<meta property="article:modified_time" content="2020-12-09T10:09:14.414Z">
+<meta property="article:author" content="Favorhau">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/09/rCRf54.png">
+
+
+<link rel="canonical" href="https://13590077975.github.io/2020/12/09/20201209%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>20201209学习日记---Csrf | Favorhau</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Favorhau</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A blog to share my life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"><span class="nav-number">2.</span> <span class="nav-text">CSRF跨站请求伪造</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">CSRF 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-CSRF"><span class="nav-number">2.1.1.</span> <span class="nav-text">HTML CSRF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flash-CSRF"><span class="nav-number">2.1.2.</span> <span class="nav-text">Flash CSRF</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">CSRF实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%AD%A3%E5%B8%B8%E7%99%BB%E5%BD%95"><span class="nav-number">2.2.1.</span> <span class="nav-text">用户正常登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"><span class="nav-number">2.2.2.</span> <span class="nav-text">跨站请求伪造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E8%A1%A8%E5%8D%95%E5%90%91%E7%9B%AE%E6%A0%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="nav-number">2.2.3.</span> <span class="nav-text">模拟表单向目标服务器发送请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF%E9%98%B2%E5%BE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">CSRF防御</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="nav-number">2.3.1.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81Referer"><span class="nav-number">2.3.2.</span> <span class="nav-text">验证Referer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Token"><span class="nav-number">2.3.3.</span> <span class="nav-text">Token</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Favorhau</p>
+  <div class="site-description" itemprop="description">Nothing is true,Everything is permitted.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/13590077975" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;13590077975" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/09/20201209%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Favorhau">
+      <meta itemprop="description" content="Nothing is true,Everything is permitted.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Favorhau">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20201209学习日记---Csrf
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-09 19:28:26 / 修改时间：18:09:14" itemprop="dateCreated datePublished" datetime="2020-12-09T19:28:26+08:00">2020-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">CTF求生之路</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>早几年了解过HTTP请求，今天从CTF的角度上去看了一下请求中存在的漏洞。</p>
+<a id="more"></a>
+<h1 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h1><p>HTTP其实很多学问，包括请求头（header），代理（agent）等等，在这里先再了解一下几个常用的HTTP请求。最常用的应该是get和post了，而除此之外还有put delete 等等。<br>表单提交中get和post方式的区别有5点</p>
+<ol>
+<li>get是从服务器上获取数据，post是向服务器传送数据。</li>
+<li>get是把参数数据队列加到提交表单的ACTION属性所指的URL中，值和表单内各个字段一一对应，在URL中可以看到。post是通过HTTPpost机制，将表单内各个字段与其内容放置在HTML HEADER内一起传送到ACTION属性所指的URL地址。用户看不到这个过程。</li>
+<li>对于get方式，服务器端用Request.QueryString获取变量的值，对于post方式，服务器端用Request.Form获取提交的数据。</li>
+<li>get传送的数据量较小，不能大于2KB。post传送的数据量较大，一般被默认为不受限制。但理论上，IIS4中最大量为80KB，IIS5中为100KB。（这里有看到其他文章介绍get和post的传送数据大小跟各个浏览器、操作系统以及服务器的限制有关）</li>
+<li>get安全性非常低，post安全性较高。<br>根据以往的经验来看，大多数api的请求都要求使用post方式。而一般流量一般的网页则用get方式。而put和delete很少用，且很多都能够用post代替。</li>
+</ol>
+<h1 id="CSRF跨站请求伪造"><a href="#CSRF跨站请求伪造" class="headerlink" title="CSRF跨站请求伪造"></a>CSRF跨站请求伪造</h1><p><em>钓鱼网站，界面操作和真是的页面一模一样，当用户操作转账功能的时候，转账数据也会发送到真实的后台，但是其中用户输入的信息中对端账户可能会被修改掉，导致用户确实转账了，但是钱却转给了别人</em></p>
+<p>以下内容摘自<a target="_blank" rel="noopener" href="https://wiki.x10sec.org/web/csrf-zh/#html-csrf">ctfwiki</a>：</p>
+<h2 id="CSRF-类型"><a href="#CSRF-类型" class="headerlink" title="CSRF 类型"></a>CSRF 类型</h2><p>按请求类型，可分为 GET 型和 POST 型。</p>
+<p>按攻击方式，可分为 HTML CSRF、JSON HiJacking、Flash CSRF 等。</p>
+<h3 id="HTML-CSRF"><a href="#HTML-CSRF" class="headerlink" title="HTML CSRF"></a>HTML CSRF</h3><p>利用 HTML 元素发出 CSRF 请求，这是最常见的 CSRF 攻击。</p>
+<p>HTML 中能设置 <code>src/href</code> 等链接地址的标签都可以发起一个 GET 请求，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;link href&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;img src&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;img lowsrc&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;img dynsrc&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;meta http-equiv&#x3D;&quot;refresh&quot; content&#x3D;&quot;0; url&#x3D;&quot;&gt;</span><br><span class="line">&lt;iframe src&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;frame src&#x3D;&quot;&quot;&gt;</span><br><span class="line">&lt;script src&#x3D;&quot;&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;bgsound src&#x3D;&quot;&quot;&gt;&lt;&#x2F;bgsound&gt;</span><br><span class="line">&lt;embed src&#x3D;&quot;&quot;&gt;&lt;&#x2F;bgsound&gt;</span><br><span class="line">&lt;video src&#x3D;&quot;&quot;&gt;&lt;&#x2F;video&gt;</span><br><span class="line">&lt;audio src&#x3D;&quot;&quot;&gt;&lt;&#x2F;audio&gt;</span><br><span class="line">&lt;a href&#x3D;&quot;&quot;&gt;&lt;&#x2F;a&gt;</span><br><span class="line">&lt;table background&#x3D;&quot;&quot;&gt;&lt;&#x2F;table&gt;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<p>还有 CSS 样式中的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="attribute">background:</span>url(<span class="string">&quot;&quot;</span>)</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>也可使用表单来对 POST 型的请求进行伪造。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action&#x3D;&quot;http:&#x2F;&#x2F;www.a.com&#x2F;register&quot; id&#x3D;&quot;register&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">  &lt;input type&#x3D;text name&#x3D;&quot;username&quot; value&#x3D;&quot;&quot; &#x2F;&gt;</span><br><span class="line">  &lt;input type&#x3D;password name&#x3D;&quot;password&quot; value&#x3D;&quot;&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  var f &#x3D; document.getElementById(&quot;register&quot;);</span><br><span class="line">  f.inputs[0].value &#x3D; &quot;test&quot;;</span><br><span class="line">  f.inputs[1].value &#x3D; &quot;passwd&quot;;</span><br><span class="line">  f.submit();</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Flash-CSRF"><a href="#Flash-CSRF" class="headerlink" title="Flash CSRF"></a>Flash CSRF</h3><p>Flash 也有各种方式可以发起网络请求，包括 POST。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">flash</span><span class="selector-class">.net</span><span class="selector-class">.URLRequest</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">flash</span><span class="selector-class">.system</span><span class="selector-class">.Security</span>;</span><br><span class="line">var url = new URLRequest(&quot;http://target/page&quot;);</span><br><span class="line">var param = new URLVariables();</span><br><span class="line">param = &quot;test=123&quot;;</span><br><span class="line">url.method = &quot;POST&quot;;</span><br><span class="line">url.data = param;</span><br><span class="line"><span class="selector-tag">sendToURL</span>(<span class="selector-tag">url</span>);</span><br><span class="line"><span class="selector-tag">stop</span>();</span><br></pre></td></tr></table></figure>
+
+<p>Flash 中还可以使用 <code>getURL</code>、<code>loadVars</code> 等方式发起请求。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req = new LoadVars();</span><br><span class="line"><span class="selector-tag">req</span><span class="selector-class">.addRequestHeader</span>(&quot;<span class="selector-tag">foo</span>&quot;, &quot;<span class="selector-tag">bar</span>&quot;);</span><br><span class="line">req.send(&quot;http://target/page?v1=123&amp;v2=222&quot;, &quot;_blank&quot;, &quot;GET&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="CSRF实例"><a href="#CSRF实例" class="headerlink" title="CSRF实例"></a>CSRF实例</h2><p>直接通过引文中的内容来实例化，进行CSRF攻击需要有两样东西</p>
+<ul>
+<li>cookie</li>
+<li>仿造表单<h3 id="用户正常登录"><a href="#用户正常登录" class="headerlink" title="用户正常登录"></a>用户正常登录</h3></li>
+</ul>
+<ol>
+<li>用户在正常访问目标网站的时候登录账户，产生相应的cookie，成功变成登录状态。</li>
+<li>用户在不知情的情况下进入受到篡改的网页。</li>
+</ol>
+<h3 id="跨站请求伪造"><a href="#跨站请求伪造" class="headerlink" title="跨站请求伪造"></a>跨站请求伪造</h3><p>这时候需要伪造一个网页，表单值账户填写自己的账户即可，示例代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://127.0.0.1/&quot;</span> <span class="attr">id</span>=<span class="string">&quot;register&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;to_account&quot;</span> <span class="attr">value</span>=<span class="string">&quot;admin&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;money&quot;</span> <span class="attr">value</span>=<span class="string">&quot;9999&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">br</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;点击领取优惠卷&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>示例图：<br><a href="#"><img src="https://s3.ax1x.com/2020/12/09/rCRf54.png" alt="rCRf54.png"></a></p>
+<h3 id="模拟表单向目标服务器发送请求"><a href="#模拟表单向目标服务器发送请求" class="headerlink" title="模拟表单向目标服务器发送请求"></a>模拟表单向目标服务器发送请求</h3><p>通过模拟表单 向已经登录的网站发送请求 即可完成csrf攻击。</p>
+<h2 id="CSRF防御"><a href="#CSRF防御" class="headerlink" title="CSRF防御"></a>CSRF防御</h2><p>常见的csrf防御其实经常可以见到。</p>
+<h3 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h3><p>验证码强制用户必须与应用进行交互，才能完成最终请求。<br>所以这样为什么那么多网站需要设置验证码，当然验证码的作用还不知这些，比方说还有防爬等作用。</p>
+<h3 id="验证Referer"><a href="#验证Referer" class="headerlink" title="验证Referer"></a>验证Referer</h3><p>检查请求是否来自合法的源。但服务器并非什么时候都能取得 Referer</p>
+<h3 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h3><p>CSRF 能够攻击成功的本质原因是重要操作的所有参数都可以被攻击者猜测得到。<br>token验证（应该也是最常用的验证方式），在许多api的开发文档当中都会涉及到验证token的环节。<br><em>Token must be random enough. In addition, the purpose of Token is not to prevent duplicate submissions, so for the convenience of use, it is allowed to use the same Token in the lifetime of a user before the Token is consumed, but if the user has already submitted the form, the Token has Consumed, the token should be regenerated.<br>Token should also pay attention to its confidentiality. If the Token appears in the URL, it may be leaked through the Referer. Try to put the Token in the form, change the sensitive operation from GET to POST, submit it as a form or AJAX, avoid Token. Give way.</em></p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>这样的攻击（我甚至觉得这不应该称为攻击）常常出现在我们周边，当然真正的攻击远不止那么简单，需要用到多方面的漏洞，当然对于攻击的防御现在运用到哈希散列等等的知识。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/07/20201207%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" rel="prev" title="20201207学习日记">
+                  <i class="fa fa-chevron-left"></i> 20201207学习日记
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Favorhau</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">8k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
