@@ -27,7 +27,7 @@
   <meta name="description" content="终于来到sql注入的学习了，sql注入先是给我了很“黑客”的感觉，之前有操作过phpmyadmin，接触了数据库普通的“查删减改”（大多数都是在后端云干的），那sql语句长什么样子呢，sql注入又是如何。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20201214学习日记---sql注入">
-<meta property="og:url" content="https://13590077975.github.io/2020/12/14/20201210%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Favorhau">
 <meta property="og:description" content="终于来到sql注入的学习了，sql注入先是给我了很“黑客”的感觉，之前有操作过phpmyadmin，接触了数据库普通的“查删减改”（大多数都是在后端云干的），那sql语句长什么样子呢，sql注入又是如何。">
 <meta property="og:locale" content="zh_CN">
@@ -37,13 +37,14 @@
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/14/ru0Vns.png">
 <meta property="og:image" content="https://s3.ax1x.com/2020/12/14/ruDYY6.png">
 <meta property="article:published_time" content="2020-12-14T05:28:26.000Z">
-<meta property="article:modified_time" content="2020-12-14T14:44:36.365Z">
+<meta property="article:modified_time" content="2020-12-15T16:31:16.654Z">
 <meta property="article:author" content="Favorhau">
+<meta property="article:tag" content="SQL注入">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s3.ax1x.com/2020/12/14/rngMvT.png">
 
 
-<link rel="canonical" href="https://13590077975.github.io/2020/12/14/20201210%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
+<link rel="canonical" href="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
 
 
 <script class="page-configurations">
@@ -185,7 +186,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">SQL结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">SQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">常用的SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E8%A1%A8%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.1.</span> <span class="nav-text">SQL表约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%ACSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">5.</span> <span class="nav-text">基本SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#information-schema"><span class="nav-number">5.1.</span> <span class="nav-text">information_schema</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84information-schema"><span class="nav-number">5.1.1.</span> <span class="nav-text">进入到系统自带的information_schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">5.1.2.</span> <span class="nav-text">显示数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8-1"><span class="nav-number">5.1.3.</span> <span class="nav-text">显示数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E7%9A%84%E5%8F%91%E7%8E%B0"><span class="nav-number">5.2.</span> <span class="nav-text">SQL的发现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E4%BA%A7%E7%94%9F%E2%80%93%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%B1%82%E6%AC%A1%E7%90%86%E8%A7%A3"><span class="nav-number">5.2.1.</span> <span class="nav-text">SQL注入的产生–从代码层次理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E7%9A%84%E5%8F%91%E7%8E%B0-1"><span class="nav-number">5.2.2.</span> <span class="nav-text">SQL的发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">SQL结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">SQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">常用的SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E8%A1%A8%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.1.</span> <span class="nav-text">SQL表约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%ACSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">5.</span> <span class="nav-text">基本SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#information-schema"><span class="nav-number">5.1.</span> <span class="nav-text">information_schema</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84information-schema"><span class="nav-number">5.1.1.</span> <span class="nav-text">进入到系统自带的information_schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">5.1.2.</span> <span class="nav-text">显示数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8-1"><span class="nav-number">5.1.3.</span> <span class="nav-text">显示数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E7%9A%84%E5%8F%91%E7%8E%B0"><span class="nav-number">5.2.</span> <span class="nav-text">SQL的发现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E4%BA%A7%E7%94%9F%E2%80%93%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%B1%82%E6%AC%A1%E7%90%86%E8%A7%A3"><span class="nav-number">5.2.1.</span> <span class="nav-text">SQL注入的产生–从代码层次理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%8F%91%E7%8E%B0"><span class="nav-number">5.2.2.</span> <span class="nav-text">SQL注入的发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -199,7 +200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -208,6 +209,10 @@
           
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -252,7 +257,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/14/20201210%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -275,10 +280,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-12-14 13:28:26 / 修改时间：22:44:36" itemprop="dateCreated datePublished" datetime="2020-12-14T13:28:26+08:00">2020-12-14</time>
+      <time title="创建时间：2020-12-14 13:28:26" itemprop="dateCreated datePublished" datetime="2020-12-14T13:28:26+08:00">2020-12-14</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-16 00:31:16" itemprop="dateModified" datetime="2020-12-16T00:31:16+08:00">2020-12-16</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -297,7 +308,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>963</span>
+      <span>967</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -334,8 +345,8 @@
 <p>最后就会出现如图结果。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/ru0Vns"><img src="https://s3.ax1x.com/2020/12/14/ru0Vns.png" alt="ru0Vns.png"></a></p>
 <h2 id="SQL的发现"><a href="#SQL的发现" class="headerlink" title="SQL的发现"></a>SQL的发现</h2><h3 id="SQL注入的产生–从代码层次理解"><a href="#SQL注入的产生–从代码层次理解" class="headerlink" title="SQL注入的产生–从代码层次理解"></a>SQL注入的产生–从代码层次理解</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ruDYY6"><img src="https://s3.ax1x.com/2020/12/14/ruDYY6.png" alt="ruDYY6.png"></a></p>
 <p>总的来说：web没有对用户输入的数据进行严格的过滤，就把sql带进数据库进行查询。</p>
-<h3 id="SQL的发现-1"><a href="#SQL的发现-1" class="headerlink" title="SQL的发现"></a>SQL的发现</h3><p><em>找到有可能用到sql查询语句的地方</em><br><em>寻找所有有可能出现SQL交互的</em></p>
-<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>学习了基本的sql结构，下一步可以是sql的实践，期望更有收获。</p>
+<h3 id="SQL注入的发现"><a href="#SQL注入的发现" class="headerlink" title="SQL注入的发现"></a>SQL注入的发现</h3><p><em>找到有可能用到sql查询语句的地方</em><br><em>寻找所有有可能出现SQL交互的</em></p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>学习了基本的sql结构，下一步可以是sql注入的实践，期望更有收获。</p>
 
     </div>
 
@@ -344,6 +355,9 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag"># SQL注入</a>
+          </div>
 
         
 
@@ -354,6 +368,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2020/12/15/20201215%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="20201215学习日记---sql注入（二）">
+                  20201215学习日记---sql注入（二） <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -412,13 +429,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">9k</span>
+    <span title="站点总字数">13k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
