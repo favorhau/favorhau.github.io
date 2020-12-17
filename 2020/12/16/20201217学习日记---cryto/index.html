@@ -24,27 +24,23 @@
     var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="终于来到sql注入的学习了，sql注入先是给我了很“黑客”的感觉，之前有操作过phpmyadmin，接触了数据库普通的“查删减改”（大多数都是在后端云干的），那sql语句长什么样子呢，sql注入又是如何。">
+  <meta name="description" content="作为入门的ctf玩家，需要懂得常用的密码。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20201214学习日记---sql注入">
-<meta property="og:url" content="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:title" content="20201216学习日记---cryto">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/16/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/index.html">
 <meta property="og:site_name" content="Favorhau">
-<meta property="og:description" content="终于来到sql注入的学习了，sql注入先是给我了很“黑客”的感觉，之前有操作过phpmyadmin，接触了数据库普通的“查删减改”（大多数都是在后端云干的），那sql语句长什么样子呢，sql注入又是如何。">
+<meta property="og:description" content="作为入门的ctf玩家，需要懂得常用的密码。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/14/rngMvT.png">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/14/rn6DSK.md.png">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/14/rnxzIs.png">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/14/ru0Vns.png">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/14/ruDYY6.png">
-<meta property="article:published_time" content="2020-12-14T05:28:26.000Z">
-<meta property="article:modified_time" content="2020-12-15T16:31:16.654Z">
+<meta property="og:image" content="http://www.asciima.com/img/ascii-Table.jpg">
+<meta property="article:published_time" content="2020-12-16T12:28:26.000Z">
+<meta property="article:modified_time" content="2020-12-17T16:24:55.112Z">
 <meta property="article:author" content="Favorhau">
-<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="cryto">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/14/rngMvT.png">
+<meta name="twitter:image" content="http://www.asciima.com/img/ascii-Table.jpg">
 
 
-<link rel="canonical" href="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
+<link rel="canonical" href="https://13590077975.github.io/2020/12/16/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
 
 
 <script class="page-configurations">
@@ -57,7 +53,7 @@
   };
 </script>
 
-  <title>20201214学习日记---sql注入 | Favorhau</title>
+  <title>20201216学习日记---cryto | Favorhau</title>
   
 
 
@@ -186,7 +182,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">SQL结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">SQL数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">常用的SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E8%A1%A8%E7%BA%A6%E6%9D%9F"><span class="nav-number">4.1.</span> <span class="nav-text">SQL表约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%ACSQL%E6%B3%A8%E5%85%A5"><span class="nav-number">5.</span> <span class="nav-text">基本SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#information-schema"><span class="nav-number">5.1.</span> <span class="nav-text">information_schema</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%88%B0%E7%B3%BB%E7%BB%9F%E8%87%AA%E5%B8%A6%E7%9A%84information-schema"><span class="nav-number">5.1.1.</span> <span class="nav-text">进入到系统自带的information_schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">5.1.2.</span> <span class="nav-text">显示数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8-1"><span class="nav-number">5.1.3.</span> <span class="nav-text">显示数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E7%9A%84%E5%8F%91%E7%8E%B0"><span class="nav-number">5.2.</span> <span class="nav-text">SQL的发现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E4%BA%A7%E7%94%9F%E2%80%93%E4%BB%8E%E4%BB%A3%E7%A0%81%E5%B1%82%E6%AC%A1%E7%90%86%E8%A7%A3"><span class="nav-number">5.2.1.</span> <span class="nav-text">SQL注入的产生–从代码层次理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%8F%91%E7%8E%B0"><span class="nav-number">5.2.2.</span> <span class="nav-text">SQL注入的发现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">对称性加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA"><span class="nav-number">2.2.1.</span> <span class="nav-text">RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9D%9E%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.2.</span> <span class="nav-text">其他非对称性加密</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">哈希（Hash）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -257,7 +253,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/16/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -270,7 +266,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          20201214学习日记---sql注入
+          20201216学习日记---cryto
         </h1>
 
         <div class="post-meta-container">
@@ -281,14 +277,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-14 13:28:26" itemprop="dateCreated datePublished" datetime="2020-12-14T13:28:26+08:00">2020-12-14</time>
+      <time title="创建时间：2020-12-16 20:28:26" itemprop="dateCreated datePublished" datetime="2020-12-16T20:28:26+08:00">2020-12-16</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-16 00:31:16" itemprop="dateModified" datetime="2020-12-16T00:31:16+08:00">2020-12-16</time>
+        <time title="修改时间：2020-12-18 00:24:55" itemprop="dateModified" datetime="2020-12-18T00:24:55+08:00">2020-12-18</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,14 +304,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>967</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -326,27 +322,50 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>终于来到sql注入的学习了，sql注入先是给我了很“黑客”的感觉，之前有操作过phpmyadmin，接触了数据库普通的“查删减改”（大多数都是在后端云干的），那sql语句长什么样子呢，sql注入又是如何。</p>
+        <p>作为入门的ctf玩家，需要懂得常用的密码。</p>
 <a id="more"></a>
+<p>说到密码，很多人会把MD5、base64等混淆在一起（<del>包括我之前也会把md5称为“密码”</del>）。其实严格区分起来，应该是：</p>
+<ul>
+<li>加密(encipher/decipher)：加密传输信息，保证信息安全性，通过密钥和密文可以还原原始信息</li>
+<li>编码(encode/decode)：将数据转化成某种固定格式的编码信息，方便不同系统间的传输，通过解码编码信息可以得到原始信息。</li>
+<li>散列(hash)：也叫摘要或哈希，验证信息的完整性，不能通过哈希值还原原始信息。</li>
+</ul>
+<p>比起系统学习各种密码（编码），更多的应该是在做题、项目中习得，比方说url编码、base64编码等就经常会被使用。</p>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>常见的编码：ASCII（美国信息交换标准代码）、Base64、URL编码、HTML编码、Unicode编码、UTF-8、莫斯电码、二维码</p>
+<ul>
+<li>ASCII<br>（American Standard Code for Information Interchange，美国标准信息交换代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。<img src="http://www.asciima.com/img/ascii-Table.jpg" alt="ASCII码表"></li>
+<li>Base64<br>一般可以用来处理在HTTP环境下传递较长的标识信息</li>
+<li>URL编码<br>这个是非常常见的 不能漏掉（相当于一种规范）</li>
+<li>Unicode<br>Unicode是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。<br><del>（其实一直对Unicode 、 gbk 、utf-8 不理解，直到我看到了这个）</del><br>Unicode：OSI指定的编码标准；<br>GBK：Chinese Internal Code Specification 汉字内码扩展规范<br>UTF-8：一种针对Unicode的一种可变长度字符编码<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gavin-num1/p/5170247.html">传送门</a></li>
+<li>其他编码<br><del>其实编码给我的感觉就是：无密码的密码</del><br>剩下的还有诸如莫斯电码（不同网站出来的结果会不一样）、二维码这些。</li>
+</ul>
+<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><p>加密常规一般可以分为，对称性加密目前研究已经相对充分，而非对称性加密还有很长的路需要走。</p>
+<ul>
+<li>对称性加密（symmetrical encryption）</li>
+<li>非对称性加密（Asymmetric encryption）</li>
+</ul>
+<h2 id="对称性加密"><a href="#对称性加密" class="headerlink" title="对称性加密"></a>对称性加密</h2><p>“对称密钥”的加密算法主要有DES、TripleDES、RC2、RC4、RC5和Blowfish等。<br>以上的加密算法基本准寻以下算法特征：</p>
+<ol>
+<li>加密方和解密方使用同一个密钥；</li>
+<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
+<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
+</ol>
+<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>对称加密算法在加密和解密时使用的是同一个秘钥；而非对称加密算法需要两个密钥来进行加密和解密，这两个密钥是公开密钥（public key，简称公钥）和私有密钥（private key，简称私钥）<br>非对称性加密一般有：RSA、DSA、ECDSA。</p>
+<p><strong>说到非对称性加密 那就不得不说RSA了。</strong></p>
+<h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p>RSA公开密钥密码体制是一种使用不同的加密密钥与解密密钥，“由已知加密密钥推导出解密密钥在计算上是不可行的”密码体制。<br>找了挺多的体制解释，比较好的是这个<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">传送门</a><br>梳理了一下思路 大概上就分为四个步骤。</p>
+<ol>
+<li>选取素数n</li>
+<li>选取大整数e</li>
+<li>确定密钥d</li>
+<li>公开n和e保存d<br>当然具体过程并没有那么简单。<br>而如果要破解此加密的关键就是选取的<em>大素数n</em>无法被分解（目前仅能分解到2048位)<br>但是<blockquote class="blockquote-center">
+<p>2020年12月4日，中国科学技术大学宣布该校潘建伟等人成功构建76个光子的量子计算机九章</p>
 
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><em>SQL注入</em>望文生义先是与sql有关。想了解如何注入 我想需要先了解一下SQL。<br>SQL （Structured Query Language）结构化查询语言，常见的SQL数据库有MySQL、sql、server，Oracle、Sybase等。<br>在开始之前使用了一个很好用的php集成开发环境-phpstudy<br>其支持一键LAMP,LNMP,集群,监控,网站,FTP,数据库,JAVA等100多项服务器管理功能<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rngMvT"><img src="https://s3.ax1x.com/2020/12/14/rngMvT.png" alt="rngMvT.png"></a></p>
-<h1 id="SQL结构"><a href="#SQL结构" class="headerlink" title="SQL结构"></a>SQL结构</h1><p>sql结构如图所示，如图：数据表-字段-数据这样的结构。</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rn6DSK"><img src="https://s3.ax1x.com/2020/12/14/rn6DSK.md.png" alt="rn6DSK.md.png"></a></p>
-<h1 id="SQL数据类型"><a href="#SQL数据类型" class="headerlink" title="SQL数据类型"></a>SQL数据类型</h1><p>SQL数据类型除了常规的整型、文本型，又细分了具体的类型。<br>比如text分为char、varchar等。<br><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_datatypes.asp">具体分类</a></p>
-<h1 id="常用的SQL语句"><a href="#常用的SQL语句" class="headerlink" title="常用的SQL语句"></a>常用的SQL语句</h1><p>在概念里面，SQL常用的应该是【查、删、减、改】，后面应该对这四个最基本的熟练掌握。</p>
-<h2 id="SQL表约束"><a href="#SQL表约束" class="headerlink" title="SQL表约束"></a>SQL表约束</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/rnxzIs"><img src="https://s3.ax1x.com/2020/12/14/rnxzIs.png" alt="rnxzIs.png"></a></p>
-<p><strong>show databases;</strong><br>查询数据库</p>
-<p><strong>create table tablename;</strong><br>新增数据表</p>
-<p><del>…写到这里发现不想写下去，因为语句太多太多了，基本上就是按照上面说的sql结构进一步操作。（这让我想起来phpmyadmin的可视化数据表好方便）</del></p>
-<h1 id="基本SQL注入"><a href="#基本SQL注入" class="headerlink" title="基本SQL注入"></a>基本SQL注入</h1><h2 id="information-schema"><a href="#information-schema" class="headerlink" title="information_schema"></a>information_schema</h2><p>数据库跟 performance_schema 一样，都是 MySQL 自带的信息数据库。其中 performance_schema 用于性能分析，而 information_schema 用于存储数据库元数据(关于数据的数据)，例如数据库名、表名、列的数据类型、访问权限等。</p>
-<h3 id="进入到系统自带的information-schema"><a href="#进入到系统自带的information-schema" class="headerlink" title="进入到系统自带的information_schema"></a>进入到系统自带的information_schema</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use information_schema;</span><br></pre></td></tr></table></figure>
-<h3 id="显示数据表"><a href="#显示数据表" class="headerlink" title="显示数据表"></a>显示数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure>
-<h3 id="显示数据表-1"><a href="#显示数据表-1" class="headerlink" title="显示数据表"></a>显示数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from tables;</span><br></pre></td></tr></table></figure>
-<p>最后就会出现如图结果。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/ru0Vns"><img src="https://s3.ax1x.com/2020/12/14/ru0Vns.png" alt="ru0Vns.png"></a></p>
-<h2 id="SQL的发现"><a href="#SQL的发现" class="headerlink" title="SQL的发现"></a>SQL的发现</h2><h3 id="SQL注入的产生–从代码层次理解"><a href="#SQL注入的产生–从代码层次理解" class="headerlink" title="SQL注入的产生–从代码层次理解"></a>SQL注入的产生–从代码层次理解</h3><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/ruDYY6"><img src="https://s3.ax1x.com/2020/12/14/ruDYY6.png" alt="ruDYY6.png"></a></p>
-<p>总的来说：web没有对用户输入的数据进行严格的过滤，就把sql带进数据库进行查询。</p>
-<h3 id="SQL注入的发现"><a href="#SQL注入的发现" class="headerlink" title="SQL注入的发现"></a>SQL注入的发现</h3><p><em>找到有可能用到sql查询语句的地方</em><br><em>寻找所有有可能出现SQL交互的</em></p>
-<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>学习了基本的sql结构，下一步可以是sql注入的实践，期望更有收获。</p>
+</blockquote>
+当然，要对付量子计算机，会有专门的量子密码<del>（仅了解，虽然我也不懂具体是啥）</del><br>诚然，从来就没有绝对的安全。安全都是相对的。<h3 id="其他非对称性加密"><a href="#其他非对称性加密" class="headerlink" title="其他非对称性加密"></a>其他非对称性加密</h3>对称性加密最经典的、以及最常见常用的应该是RSA。公钥密码体制采用的加密密钥(公开钥)和解密密钥(秘密钥)是不同的。由于加密密钥是公开的，密钥的分配和管理就很简单，而且能够很容易地实现数字签名，因此最适合于电子商务应用的需要。</li>
+</ol>
+<p><em>其主要的优点是：<br>(1)密钥分配简单。<br>(2)密钥的保存量少。<br>(3)可以满足互不相识的人之间进行私人谈话时的保密性要求。<br>(4)可以完成数字签名和数字鉴别。<br>但在实际应用中，公钥密码体制并没有完全取代私钥密码体制，这是因为公钥密码体制在应用中存在以下几个缺点：<br>(1)公钥密码是对大数进行操作，计算量特别浩大，速度远比不上私钥密码体制。<br>(2)公钥密码中要将相当一部分密码信息予以公布，势必对系统产生影响。<br>(3)在公钥密码中，若公钥文件被更改，则公钥被攻破。<br>（摘自百度百科）</em></p>
+<h1 id="哈希（Hash）"><a href="#哈希（Hash）" class="headerlink" title="哈希（Hash）"></a>哈希（Hash）</h1><p>常见摘要：MD5、SHA1（主要适用于数字签名标准DSS里面定义的数字签名算法）<br>无论多长的一段数据经过MD5之后都会变成指定的长度。<br>把MD5称为“加密”应当是不准确的，MD（Message-Digest Algorithm）信息摘要算法<br>最直观的应该是MD5<em>不可逆</em>，<del>（虽然有很多声称MD5破解的网站）</del><br>有MD5,也有MD4,MD2等。<br>目前没有软件能有效地破解 MD5。大多数时候只是把常见字符串的 MD5 存了起来为彩虹表，然后直接反查。<br>所谓”破解“的网站无非就是存了大量的可能密码。<br>比如 <a target="_blank" rel="noopener" href="https://cmd5.com/">https://cmd5.com/</a> </p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>CTF基本上看不懂的文字上面大都已经涵盖（可能只是小部分），在实战中（听说）还会出现诸如彩虹密码等<em>新型密码</em>，这就得看造化（yun qi）了。</p>
 
     </div>
 
@@ -356,20 +375,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/SQL%E6%B3%A8%E5%85%A5/" rel="tag"># SQL注入</a>
+              <a href="/tags/cryto/" rel="tag"># cryto</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/09/20201209%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" rel="prev" title="20201209学习日记---Csrf">
-                  <i class="fa fa-chevron-left"></i> 20201209学习日记---Csrf
+                <a href="/2020/12/14/20201214%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5/" rel="prev" title="20201214学习日记---sql注入">
+                  <i class="fa fa-chevron-left"></i> 20201214学习日记---sql注入
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/16/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/" rel="next" title="20201216学习日记---cryto">
-                  20201216学习日记---cryto <i class="fa fa-chevron-right"></i>
+                <a href="/2020/12/16/20201216%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="20201216学习日记---sql注入（二）">
+                  20201216学习日记---sql注入（二） <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
