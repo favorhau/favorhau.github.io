@@ -24,23 +24,28 @@
     var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="作为入门的ctf玩家，需要懂得常用的密码。">
+  <meta name="description" content="最近有一个开源项目depix在github上面很火–通过特定的算法可将马赛克恢复。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20201217学习日记---cryto">
-<meta property="og:url" content="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/index.html">
+<meta property="og:title" content="depix-马赛克逆转神器">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/22/depix-%E9%A9%AC%E8%B5%9B%E5%85%8B%E9%80%86%E8%BD%AC%E7%A5%9E%E5%99%A8/index.html">
 <meta property="og:site_name" content="Favorhau">
-<meta property="og:description" content="作为入门的ctf玩家，需要懂得常用的密码。">
+<meta property="og:description" content="最近有一个开源项目depix在github上面很火–通过特定的算法可将马赛克恢复。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.asciima.com/img/ascii-Table.jpg">
-<meta property="article:published_time" content="2020-12-17T15:59:26.000Z">
-<meta property="article:modified_time" content="2020-12-17T16:31:55.049Z">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/22/rDK8Rs.md.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/22/rDKDJJ.md.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/22/rDQi3d.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/22/rDQw8J.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201215161808955.png">
+<meta property="article:published_time" content="2020-12-22T04:29:26.000Z">
+<meta property="article:modified_time" content="2020-12-22T03:18:03.234Z">
 <meta property="article:author" content="Favorhau">
-<meta property="article:tag" content="cryto">
+<meta property="article:tag" content="马赛克">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.asciima.com/img/ascii-Table.jpg">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/22/rDK8Rs.md.jpg">
 
 
-<link rel="canonical" href="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
+<link rel="canonical" href="https://13590077975.github.io/2020/12/22/depix-%E9%A9%AC%E8%B5%9B%E5%85%8B%E9%80%86%E8%BD%AC%E7%A5%9E%E5%99%A8/">
 
 
 <script class="page-configurations">
@@ -53,7 +58,7 @@
   };
 </script>
 
-  <title>20201217学习日记---cryto | Favorhau</title>
+  <title>depix-马赛克逆转神器 | Favorhau</title>
   
 
 
@@ -182,7 +187,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">对称性加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA"><span class="nav-number">2.2.1.</span> <span class="nav-text">RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9D%9E%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.2.</span> <span class="nav-text">其他非对称性加密</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C"><span class="nav-number">3.</span> <span class="nav-text">哈希</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">预期准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">3.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%E4%B8%AD%E5%B0%86%E5%83%8F%E7%B4%A0%E5%9D%97%E5%88%87%E4%B8%BA%E5%8D%95%E4%B8%AA%E7%9F%A9%E5%BD%A2"><span class="nav-number">4.1.</span> <span class="nav-text">从屏幕快照中将像素块切为单个矩形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%85%B7%E6%9C%89%E7%9B%B8%E5%90%8C%E5%AD%97%E4%BD%93%E8%AE%BE%E7%BD%AE%EF%BC%88%E6%96%87%E6%9C%AC%E5%A4%A7%E5%B0%8F%EF%BC%8C%E5%AD%97%E4%BD%93%EF%BC%8C%E9%A2%9C%E8%89%B2%EF%BC%8Chsl%EF%BC%89%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%AD%EF%BC%8C%E7%B2%98%E8%B4%B4%E5%B8%A6%E6%9C%89%E9%A2%84%E6%9C%9F%E5%AD%97%E7%AC%A6%E7%9A%84De-Bruijn%E5%BA%8F%E5%88%97%EF%BC%8C%E5%88%B6%E4%BD%9C%E5%BA%8F%E5%88%97%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE"><span class="nav-number">4.2.</span> <span class="nav-text">在具有相同字体设置（文本大小，字体，颜色，hsl）的编辑器中，粘贴带有预期字符的De Bruijn序列，制作序列的屏幕截图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">4.3.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">可能遇到的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">6.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">7.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -263,7 +268,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/22/depix-%E9%A9%AC%E8%B5%9B%E5%85%8B%E9%80%86%E8%BD%AC%E7%A5%9E%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -276,7 +281,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          20201217学习日记---cryto
+          depix-马赛克逆转神器
         </h1>
 
         <div class="post-meta-container">
@@ -286,16 +291,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-12-17 23:59:26" itemprop="dateCreated datePublished" datetime="2020-12-17T23:59:26+08:00">2020-12-17</time>
+      <time title="创建时间：2020-12-22 12:29:26 / 修改时间：11:18:03" itemprop="dateCreated datePublished" datetime="2020-12-22T12:29:26+08:00">2020-12-22</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-18 00:31:55" itemprop="dateModified" datetime="2020-12-18T00:31:55+08:00">2020-12-18</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,6 +302,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">CTF求生之路</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
         </span>
     </span>
 
@@ -314,14 +317,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -332,50 +335,51 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>作为入门的ctf玩家，需要懂得常用的密码。</p>
+        <p>最近有一个开源项目depix在github上面很火–通过特定的算法可将马赛克恢复。</p>
 <a id="more"></a>
-<p>说到密码，很多人会把MD5、base64等混淆在一起（<del>包括我之前也会把md5称为“密码”</del>）。其实严格区分起来，应该是：</p>
-<ul>
-<li>加密(encipher/decipher)：加密传输信息，保证信息安全性，通过密钥和密文可以还原原始信息</li>
-<li>编码(encode/decode)：将数据转化成某种固定格式的编码信息，方便不同系统间的传输，通过解码编码信息可以得到原始信息。</li>
-<li>散列(hash)：也叫摘要或哈希，验证信息的完整性，不能通过哈希值还原原始信息。</li>
+<p>公众号等纷纷对其具体展开。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rDK8Rs"><img src="https://s3.ax1x.com/2020/12/22/rDK8Rs.md.jpg" alt="rDK8Rs.md.jpg"></a><br>对，就是这个depix！<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rDKDJJ"><img src="https://s3.ax1x.com/2020/12/22/rDKDJJ.md.jpg" alt="rDKDJJ.md.jpg"></a><br>站在巨人的肩膀上，来体验一下有趣的世界。</p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>为什么要写此文章呢？一来我觉得这个project十分有趣，能颠倒我的认识；二来有一点直觉，CTF可以围绕着这个方向去出题（如果不知道这个的话恐怕就做不了了）。所以就有了下面的文字。</p>
+<h1 id="预期准备"><a href="#预期准备" class="headerlink" title="预期准备"></a>预期准备</h1><ul>
+<li><strong>安装python</strong><br>我觉得这一步可以直接略过，安装python和配置环境变量</li>
+<li><strong>下载GitHub上的depix文件</strong></li>
 </ul>
-<p>比起系统学习各种密码（编码），更多的应该是在做题、项目中习得，比方说url编码、base64编码等就经常会被使用。</p>
-<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>常见的编码：ASCII（美国信息交换标准代码）、Base64、URL编码、HTML编码、Unicode编码、UTF-8、莫斯电码、二维码</p>
-<ul>
-<li>ASCII<br>（American Standard Code for Information Interchange，美国标准信息交换代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。<img src="http://www.asciima.com/img/ascii-Table.jpg" alt="ASCII码表"></li>
-<li>Base64<br>一般可以用来处理在HTTP环境下传递较长的标识信息</li>
-<li>URL编码<br>这个是非常常见的 不能漏掉（相当于一种规范）</li>
-<li>Unicode<br>Unicode是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。<br><del>（其实一直对Unicode 、 gbk 、utf-8 不理解，直到我看到了这个）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gavin-num1/p/5170247.html">传送门</a></del><br>Unicode：OSI指定的编码标准；<br>GBK：Chinese Internal Code Specification 汉字内码扩展规范<br>UTF-8：一种针对Unicode的一种可变长度字符编码</li>
-<li>其他编码<br><del>其实编码给我的感觉就是：无密码的密码</del><br>剩下的还有诸如莫斯电码（不同网站出来的结果会不一样）、二维码这些。</li>
-</ul>
-<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><p>加密常规一般可以分为，对称性加密目前研究已经相对充分，而非对称性加密还有很长的路需要走。</p>
-<ul>
-<li>对称性加密（symmetrical encryption）</li>
-<li>非对称性加密（Asymmetric encryption）</li>
-</ul>
-<h2 id="对称性加密"><a href="#对称性加密" class="headerlink" title="对称性加密"></a>对称性加密</h2><p>“对称密钥”的加密算法主要有DES、TripleDES、RC2、RC4、RC5和Blowfish等。<br>以上的加密算法基本准寻以下算法特征：</p>
-<ol>
-<li>加密方和解密方使用同一个密钥；</li>
-<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
-<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
-</ol>
-<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>对称加密算法在加密和解密时使用的是同一个秘钥；而非对称加密算法需要两个密钥来进行加密和解密，这两个密钥是公开密钥（public key，简称公钥）和私有密钥（private key，简称私钥）<br>非对称性加密一般有：RSA、DSA、ECDSA。</p>
-<p><strong>说到非对称性加密 那就不得不说RSA了。</strong></p>
-<h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p>RSA公开密钥密码体制是一种使用不同的加密密钥与解密密钥，“由已知加密密钥推导出解密密钥在计算上是不可行的”密码体制。<br>找了挺多的体制解释，比较好的是这个<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">传送门</a><br>梳理了一下思路 大概上就分为四个步骤。</p>
-<ol>
-<li>选取素数n</li>
-<li>选取大整数e</li>
-<li>确定密钥d</li>
-<li>公开n和e保存d<br>当然具体过程并没有那么简单。<br>而如果要破解此加密的关键就是选取的<em>大素数n</em>无法被分解（目前仅能分解到2048位)<br>但是<blockquote class="blockquote-center">
-<p>2020年12月4日，中国科学技术大学宣布该校潘建伟等人成功构建76个光子的量子计算机九章</p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>来看一下项目的介绍<br><em>Depix is a tool for recovering passwords from pixelized screenshots.<br>This implementation works on pixelized images that were created with a linear box filter.<br>In this article I cover background information on pixelization and similar research.</em></p>
+<blockquote class="blockquote-center">
+<p>一个可以将马赛克化后截图恢复的工具</p>
 
 </blockquote>
-当然，要对付量子计算机，会有专门的量子密码<del>（仅了解，虽然我也不懂具体是啥）</del><br>诚然，从来就没有绝对的安全。安全都是相对的。<h3 id="其他非对称性加密"><a href="#其他非对称性加密" class="headerlink" title="其他非对称性加密"></a>其他非对称性加密</h3>对称性加密最经典的、以及最常见常用的应该是RSA。公钥密码体制采用的加密密钥(公开钥)和解密密钥(秘密钥)是不同的。由于加密密钥是公开的，密钥的分配和管理就很简单，而且能够很容易地实现数字签名，因此最适合于电子商务应用的需要。</li>
-</ol>
-<p><em>其主要的优点是：<br>(1)密钥分配简单。<br>(2)密钥的保存量少。<br>(3)可以满足互不相识的人之间进行私人谈话时的保密性要求。<br>(4)可以完成数字签名和数字鉴别。<br>但在实际应用中，公钥密码体制并没有完全取代私钥密码体制，这是因为公钥密码体制在应用中存在以下几个缺点：<br>(1)公钥密码是对大数进行操作，计算量特别浩大，速度远比不上私钥密码体制。<br>(2)公钥密码中要将相当一部分密码信息予以公布，势必对系统产生影响。<br>(3)在公钥密码中，若公钥文件被更改，则公钥被攻破。<br>（摘自百度百科）</em></p>
-<h1 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h1><p>常见摘要：MD5、SHA1（主要适用于数字签名标准DSS里面定义的数字签名算法）<br>无论多长的一段数据经过MD5之后都会变成指定的长度。<br>把MD5称为“加密”应当是不准确的，MD（Message-Digest Algorithm）信息摘要算法<br>最直观的应该是MD5<em>不可逆</em>，<del>（虽然有很多声称MD5破解的网站）</del><br>有MD5,也有MD4,MD2等。<br>目前没有软件能有效地破解 MD5。大多数时候只是把常见字符串的 MD5 存了起来为彩虹表，然后直接反查。<br>所谓”破解“的网站无非就是存了大量的可能密码。<br>比如 <a target="_blank" rel="noopener" href="https://cmd5.com/">https://cmd5.com/</a> </p>
-<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>CTF基本上看不懂的文字上面大都已经涵盖（可能只是小部分），在实战中（听说）还会出现诸如彩虹密码等<em>新型密码</em>，这就得看造化（yun qi）了。</p>
+
+<p>作者给出的使用示例为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python depix.py -p images/testimages/testimage3_pixels.png -s images/searchimages/debruinseq_notepad_Windows10_closeAndSpaced.png -o output.png</span><br></pre></td></tr></table></figure>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="从屏幕快照中将像素块切为单个矩形"><a href="#从屏幕快照中将像素块切为单个矩形" class="headerlink" title="从屏幕快照中将像素块切为单个矩形"></a>从屏幕快照中将像素块切为单个矩形</h2><p>在这里作者给出的示例图1为<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rDQi3d"><img src="https://s3.ax1x.com/2020/12/22/rDQi3d.png" alt="rDQi3d.png"></a></p>
+<h2 id="在具有相同字体设置（文本大小，字体，颜色，hsl）的编辑器中，粘贴带有预期字符的De-Bruijn序列，制作序列的屏幕截图"><a href="#在具有相同字体设置（文本大小，字体，颜色，hsl）的编辑器中，粘贴带有预期字符的De-Bruijn序列，制作序列的屏幕截图" class="headerlink" title="在具有相同字体设置（文本大小，字体，颜色，hsl）的编辑器中，粘贴带有预期字符的De Bruijn序列，制作序列的屏幕截图"></a>在具有相同字体设置（文本大小，字体，颜色，hsl）的编辑器中，粘贴带有预期字符的De Bruijn序列，制作序列的屏幕截图</h2><p>作者给出的序列为<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/rDQw8J"><img src="https://s3.ax1x.com/2020/12/22/rDQw8J.png" alt="rDQw8J.png"></a><br>说白了也就相当于一个图像字典吧。</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python depix.py -p [pixelated rectangle image] -s [search sequence image] -o output.png</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[pixelated rectangle image] 这个参数是指被像素化后的图片</li>
+<li>[search sequence image] 指序列化图像（字典）</li>
+<li>o 输出目录</li>
+</ul>
+<p>进入指定的目录，使用cmd。在文件目录下输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python depix.py -p images/testimages/testimage1.png -s images/searchimages/debruinseq_notepad_Windows10_closeAndSpaced.png -o output.png</span><br></pre></td></tr></table></figure>
+<p>在这里均使用了作者提供的默认图片，运行的时候需要一点时间。</p>
+<p>还原后的图片</p>
+<p><img src="https://img-blog.csdnimg.cn/20201215161808955.png"></p>
+<h1 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h1><blockquote>
+<p>ImportError: No module named PIL</p>
+</blockquote>
+<p>未安装 pillow（python的图像处理库）这时候需要在文件目录键入一下命令。</p>
+<blockquote>
+<p>pip install pillow</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38252066/article/details/111143406?ops_request_misc=%25257B%252522request%25255Fid%252522%25253A%252522160860532116780299069245%252522%25252C%252522scm%252522%25253A%25252220140713.130102334..%252522%25257D&request_id=160860532116780299069245&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-3-111143406.nonecase&utm_term=depix">参考链接</a></p>
+<h1 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h1><p>目前该项目的局限性挺多，根据作者给出的算法解释<br><em>The algorithm uses the fact that the linear box filter processes every block separately. For every block it pixelizes all blocks in the search image to check for direct matches.</em></p>
+<ul>
+<li>使用了“线性盒式滤波器”，也就是如果使用微信上的马赛克就会对还原效果产生影响。</li>
+<li>同时在还原的时候需要将图像切割成相应的块。</li>
+<li>需要用到序列化的图像，这也就意味着会给汉字的匹配带来许多困难。</li>
+<li>无法实时逆转</li>
+</ul>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>无论如何，depix始终是一个十分有趣的开源项目。（可能下一道misc就会与此有关）</p>
 
     </div>
 
@@ -385,21 +389,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/cryto/" rel="tag"># cryto</a>
+              <a href="/tags/%E9%A9%AC%E8%B5%9B%E5%85%8B/" rel="tag"># 马赛克</a>
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/16/20201216%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="20201216学习日记---sql注入（二）">
-                  <i class="fa fa-chevron-left"></i> 20201216学习日记---sql注入（二）
+                <a href="/2020/12/21/PHP+MYSQL%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E5%8A%9F%E8%83%BD/" rel="prev" title="PHP+MYSQL实现简单的用户注册功能">
+                  <i class="fa fa-chevron-left"></i> PHP+MYSQL实现简单的用户注册功能
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/18/20201218%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%EF%BC%88%E4%B8%89%EF%BC%89/" rel="next" title="20201218学习日记---sql（三）">
-                  20201218学习日记---sql（三） <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
