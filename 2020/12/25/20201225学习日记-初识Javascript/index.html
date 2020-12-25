@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="前面粗略了解了一下HTML和CSS，接下来该到了不可或缺的JavaScript了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20201225学习日记-初识Javascript">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/25/20201225%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%88%9D%E8%AF%86Javascript/index.html">
+<meta property="og:site_name" content="Favorhau">
+<meta property="og:description" content="前面粗略了解了一下HTML和CSS，接下来该到了不可或缺的JavaScript了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/images/htmltree.gif">
+<meta property="article:published_time" content="2020-12-25T02:19:45.000Z">
+<meta property="article:modified_time" content="2020-12-25T12:08:01.672Z">
+<meta property="article:author" content="Favorhau">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.runoob.com/images/htmltree.gif">
+
+
+<link rel="canonical" href="https://13590077975.github.io/2020/12/25/20201225%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%88%9D%E8%AF%86Javascript/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>20201225学习日记-初识Javascript | Favorhau</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Favorhau</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A blog to share my life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%EF%BC%9Alet%E4%B8%8Evar"><span class="nav-number">1.</span> <span class="nav-text">变量：let与var</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-let%E5%8F%AA%E5%9C%A8%E5%9D%97%E5%86%85%E6%9C%89%E6%95%88"><span class="nav-number">1.1.</span> <span class="nav-text">1. let只在块内有效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87"><span class="nav-number">1.2.</span> <span class="nav-text">2. 变量提升</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">语法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">JavaScript数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">JavaScript函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript%E6%8C%87%E9%92%88%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">JavaScript指针？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML-DOM"><span class="nav-number">3.</span> <span class="nav-text">HTML DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Favorhau</p>
+  <div class="site-description" itemprop="description">Nothing is true,Everything is permitted.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/13590077975" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;13590077975" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.situ2001.com/" title="https:&#x2F;&#x2F;blog.situ2001.com&#x2F;" rel="noopener" target="_blank">situ2001</a>
+        </li>
+    </ul>
+  </div>
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/25/20201225%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%88%9D%E8%AF%86Javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Favorhau">
+      <meta itemprop="description" content="Nothing is true,Everything is permitted.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Favorhau">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20201225学习日记-初识Javascript
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-25 10:19:45 / 修改时间：20:08:01" itemprop="dateCreated datePublished" datetime="2020-12-25T10:19:45+08:00">2020-12-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A0%81%E5%86%9C%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">码农日常</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>前面<em>粗略</em>了解了一下HTML和CSS，接下来该到了不可或缺的JavaScript了。</p>
+<a id="more"></a>
+<blockquote class="blockquote-center">
+<p>JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.</p>
+
+</blockquote>
+<p>在这里记录一下学习过程中的小收获吧。</p>
+<h1 id="变量：let与var"><a href="#变量：let与var" class="headerlink" title="变量：let与var"></a>变量：let与var</h1><p>第一次见到这样的两种变量的声明方式<br><em>var and let are both used for variable declaration in javascript but the difference between them is that var is function scoped and let is block scoped.<br>It can be said that a variable declared with var is defined throughout the program as compared to let.</em><br>ES6新增了let命令，用来声明局部变量。用法类似于var。但是所声明的变量，只在let命令所在的代码块内有效。<br>二者的区别有</p>
+<h2 id="1-let只在块内有效"><a href="#1-let只在块内有效" class="headerlink" title="1. let只在块内有效"></a>1. let只在块内有效</h2><p>先看用到 var 的一段代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Finally &#x27;</span> + i)</span><br><span class="line">&#125;</span><br><span class="line">doSomething()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">Finally 5</span><br></pre></td></tr></table></figure>
+
+<p>再看用到 let 的一段代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;Finally &#x27;</span> + i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">doSomething()</span><br></pre></td></tr></table></figure>
+
+<p>打印结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">/Users/dkvirus/Documents/study/study-typescript/ex1/var.js:5</span><br><span class="line">    console.log(<span class="string">&#x27;Finally &#x27;</span> + i)</span><br><span class="line">ReferenceError: i is not defined</span><br></pre></td></tr></table></figure>
+<h2 id="2-变量提升"><a href="#2-变量提升" class="headerlink" title="2. 变量提升"></a>2. 变量提升</h2><p>使用 let 语句声明一个变量，该变量的范围限于声明它的块中。 可以在声明变量时为变量赋值，也可以稍后在脚本中给变量赋值。 </p>
+<p>使用 let 声明的变量，在声明前无法使用，否则将会导致错误。</p>
+<h1 id="语法结构"><a href="#语法结构" class="headerlink" title="语法结构"></a>语法结构</h1><p>javascript许多语法的设计是参考Java的，而Java的语法是参考C的，而也有轻微差异。</p>
+<h2 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h2><p>JavaScript 变量能够保存多种<em>数据类型</em>：数值、字符串值、数组、对象等等：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> length = <span class="number">7</span>;                             <span class="comment">// 数字</span></span><br><span class="line"><span class="keyword">var</span> lastName = <span class="string">&quot;Gates&quot;</span>;                      <span class="comment">// 字符串</span></span><br><span class="line"><span class="keyword">var</span> cars = [<span class="string">&quot;Porsche&quot;</span>, <span class="string">&quot;Volvo&quot;</span>, <span class="string">&quot;BMW&quot;</span>];         <span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">var</span> x = &#123;<span class="attr">firstName</span>:<span class="string">&quot;Bill&quot;</span>, <span class="attr">lastName</span>:<span class="string">&quot;Gates&quot;</span>&#125;;    <span class="comment">// 对象 </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript函数"><a href="#JavaScript函数" class="headerlink" title="JavaScript函数"></a>JavaScript函数</h2><p>js函数和C最大的特点在于，js不需要声明数据类型，而数据类型有一种（“隐式转换”）的感觉，</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">p1, p2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> p1 * p2;              <span class="comment">// 该函数返回 p1 和 p2 的乘积</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript指针？"><a href="#JavaScript指针？" class="headerlink" title="JavaScript指针？"></a>JavaScript指针？</h2><p>JavaScript不存在指针<br>通过传递引用的副本来传递对象。程序员无法访问任何表示对象地址的类似C的“值”。在一个函数中,可以通过该引用更改传递的对象的内容,但是您不能修改调用者拥有的引用,因为您的引用只是一个副本。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>JavaScript的语法结构，包括对于object对象的声明处理等，都和C有着一些差异，这里不做记录。</p>
+<h1 id="HTML-DOM"><a href="#HTML-DOM" class="headerlink" title="HTML DOM"></a>HTML DOM</h1><p>说道JavaScript就不得不说HTML DOM，DOM (Document Object Model) 译为<strong>文档对象模型</strong>，是 HTML 和 XML 文档的编程接口。</p>
+<p>在这里用runoob的一张图。<br><img src="https://www.runoob.com/images/htmltree.gif"></p>
+<p>可以理解为，html上的组件，都有一个接口事件，而js可以监听相关事件，当产生事件时可以进行一系列的操作。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>这篇仅仅记录一下学习过程中的心得，很多实际需要用到的比如说node.js都没有记录在此，希望下一篇能记录下node.js的相关。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/22/depix-%E9%A9%AC%E8%B5%9B%E5%85%8B%E9%80%86%E8%BD%AC%E7%A5%9E%E5%99%A8/" rel="prev" title="depix-马赛克逆转神器">
+                  <i class="fa fa-chevron-left"></i> depix-马赛克逆转神器
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Favorhau</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">25k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">23 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
