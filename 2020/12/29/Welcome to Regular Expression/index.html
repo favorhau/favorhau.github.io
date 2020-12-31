@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="欢迎来到正则表达式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Welcome to Regular Expression">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/index.html">
+<meta property="og:site_name" content="Favorhau">
+<meta property="og:description" content="欢迎来到正则表达式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2018/09/regexp-cn.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cbb30eb47ce2d46b3c0f64f7facd1086_720w.jpg?source=1940ef5c">
+<meta property="article:published_time" content="2020-12-29T15:19:45.000Z">
+<meta property="article:modified_time" content="2020-12-31T09:47:51.684Z">
+<meta property="article:author" content="Favorhau">
+<meta property="article:tag" content="BUUCTF">
+<meta property="article:tag" content="Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2018/09/regexp-cn.png">
+
+
+<link rel="canonical" href="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Welcome to Regular Expression | Favorhau</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Favorhau</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A blog to share my life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">正则基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">2.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">重复限定符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">2.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89"><span class="nav-number">2.4.</span> <span class="nav-text">转义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">断言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E7%B1%BB%E6%96%AD%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">边界类断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%AD%E8%A8%80"><span class="nav-number">3.2.</span> <span class="nav-text">其他断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E5%92%8C%E8%8C%83%E5%9B%B4"><span class="nav-number">4.</span> <span class="nav-text">组和范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">附录：正则表达式中的特殊字符</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Favorhau</p>
+  <div class="site-description" itemprop="description">Nothing is true,Everything is permitted.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/13590077975" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;13590077975" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.situ2001.com/" title="https:&#x2F;&#x2F;blog.situ2001.com&#x2F;" rel="noopener" target="_blank">situ2001</a>
+        </li>
+    </ul>
+  </div>
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Favorhau">
+      <meta itemprop="description" content="Nothing is true,Everything is permitted.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Favorhau">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Welcome to Regular Expression
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-29 23:19:45" itemprop="dateCreated datePublished" datetime="2020-12-29T23:19:45+08:00">2020-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-31 17:47:51" itemprop="dateModified" datetime="2020-12-31T17:47:51+08:00">2020-12-31</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">CTF求生之路</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>欢迎来到正则表达式。</p>
+<a id="more"></a>
+<p>说起正则表达式，我能想到的运用似乎有很多，比方说最简单的<code>表单验证</code>,以及还有一些<code>过滤</code>等等都需要用到正则匹配。<br>简单的示例：<br><em>我们在写用户注册表单时，只允许用户名包含字符、数字、下划线和连接字符(-)，并设置用户名的长度，我们就可以使用以下正则表达式来设定。</em><br><img src="https://www.runoob.com/wp-content/uploads/2018/09/regexp-cn.png"></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>虽然很多时候觉得在开发工程当中，只需要搬运常用的正则表达式就可以完成相关过滤，可在完成了上一天的学习之后让我觉得如果不了解正则匹配的原理，在安全的路上恐怕是行不通的，因此对正则匹配进行了相关展开。</p>
+<h1 id="正则基础知识"><a href="#正则基础知识" class="headerlink" title="正则基础知识"></a>正则基础知识</h1><p>在知乎上查到很好理解的方法—先从<code>元字符</code>开始。<br><em>元字符是元字符是构造正则表达式的一种基本元素</em></p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>匹配除换行符以外的任意字符</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母、数字或下划线或汉字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任意空白符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配数字</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词的开始或结束</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符的开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符的结束</td>
+</tr>
+<tr>
+<td>-</td>
+<td>表示范围</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>匹配括号中的任意一个字符</td>
+</tr>
+<tr>
+<td>*、+、?</td>
+<td>量词</td>
+</tr>
+</tbody></table>
+<p>知道一部分元字符，既可以根据元字符写简单的正则匹配。</p>
+<ol>
+<li><p>匹配ab开头的字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\bab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匹配8位的QQ号码</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d\d\d\d\d\d\d\d$</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>匹配手机号</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^1\d\d\d\d\d\d\d\d\d\d\d$</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li> 匹配银行卡号是14~18位的数字：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;<span class="number">14</span>,<span class="number">18</span>&#125;$</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>匹配以a开头的，0个或多个b结尾的字符串</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^ab*$</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="重复限定符"><a href="#重复限定符" class="headerlink" title="重复限定符"></a>重复限定符</h2><p>借用<code>知乎</code>大佬的一幅图，总结了比较好的限定符<br><img src="https://pic1.zhimg.com/80/v2-cbb30eb47ce2d46b3c0f64f7facd1086_720w.jpg?source=1940ef5c"><br>上面的<code>4.</code>就是eg</p>
+<ol start="4">
+<li> 匹配银行卡号是14~18位的数字：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^\d&#123;<span class="number">14</span>,<span class="number">18</span>&#125;$</span><br></pre></td></tr></table></figure>
+
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><blockquote>
+<p>正则表达式中用小括号()来做分组，也就是括号中的内容作为一个整体。eg:匹配ab</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(ab)*</span><br></pre></td></tr></table></figure>
+
+<h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><blockquote>
+<p>如果想要匹配的正是括号，则需要转义</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(\(ab\))*</span><br></pre></td></tr></table></figure>
+<h1 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h1><p><em>Assertions include boundaries, which indicate the beginnings and endings of lines and words, and other patterns indicating in some way that a match is possible (including look-ahead, look-behind, and conditional expressions).</em><br>来看MDN的一个eg</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> text = <span class="string">&#x27;A quick fox&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> regexpLastWord = /\w+$/;</span><br><span class="line">console.log(text.match(regexpLastWord));</span><br><span class="line"><span class="comment">// expected output: Array [&quot;fox&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> regexpWords = /\b\w+\b/g;</span><br><span class="line">console.log(text.match(regexpWords));</span><br><span class="line"><span class="comment">// expected output: Array [&quot;A&quot;, &quot;quick&quot;, &quot;fox&quot;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> regexpFoxQuality = /\w+(?= fox)/;</span><br><span class="line">console.log(text.match(regexpFoxQuality));</span><br><span class="line"><span class="comment">// expected output: Array [&quot;quick&quot;]</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="边界类断言"><a href="#边界类断言" class="headerlink" title="边界类断言"></a>边界类断言</h2><table>
+<thead>
+<tr>
+<th align="left">字符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>^</code></td>
+<td align="left">匹配输入的开头。如果多行模式设为 true，<code>^</code> 在换行符后也能立即匹配，比如 <code>/^A/</code> 匹配不了 “an A” 里面的 “A”，但是可以匹配 “An A” 里面第一个 “A”。<code>^</code> 出现在集合或范围开头时的含义与此不同（参见 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Groups_and_Ranges">group</a>）。</td>
+</tr>
+<tr>
+<td align="left"><code>$</code></td>
+<td align="left">匹配输入的结束。如果多行模式设为 true，<code>^</code> 在换行符前也能立即匹配，比如 <code>/t$/</code> 不能匹配 “eater” 中的 “t”，但是可以匹配 “eat” 中的 “t”。</td>
+</tr>
+<tr>
+<td align="left"><code>\b</code></td>
+<td align="left">匹配一个单词的边界，这是一个字的字符前后没有另一个字的字符位置, 例如在字母和空格之间。需要注意的是匹配的单词边界不包括在匹配中。换句话说，匹配字边界的长度为零。一些例子:<code>/\bm/</code> 在 “moon” 中匹配到 “m” <code>/oo\b/</code> 在 “moon” 中不会匹配到 “oo”, 因为 “oo” 后面跟着 “n” 这个单词字符.<code>/oon\b/</code> 在 “moon” 中匹配 “oon”， 因为 “oon” 是这个字符串的结尾, 因此后面没有单词字符<code>/\w\b\w/</code> 将永远不会匹配任何东西，因为一个单词字符后面永远不会有非单词字符和单词字符。匹配退格字符 (<code>[\b]</code>).</td>
+</tr>
+<tr>
+<td align="left"><code>\B</code></td>
+<td align="left">匹配非单词边界。这是上一个字符和下一个字符属于同一类型的位置：要么两者都必须是单词，要么两者都必须是非单词，例如在两个字母之间或两个空格之间。字符串的开头和结尾被视为非单词。与匹配的词边界相同，匹配的非词边界也不包含在匹配中。例如，<code>/\Bon/</code> 在 “at noon” 中匹配 “on” ，<code>/ye\B/</code> 在 “possibly yesterday”中匹配”ye” 。</td>
+</tr>
+</tbody></table>
+<h2 id="其他断言"><a href="#其他断言" class="headerlink" title="其他断言"></a>其他断言</h2><table>
+<thead>
+<tr>
+<th align="left"><code>字符</code></th>
+<th align="left"><code>含义</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>x(?=y)</code></td>
+<td align="left"><strong>向前断言:</strong> x 被 y 跟随时匹配 x。例如，对于/<code>Jack(?=Sprat)</code>/，“Jack”在跟有“Sprat”的情况下才会得到匹配．`/Jack(?=Sprat</td>
+</tr>
+<tr>
+<td align="left">x(?!y)</td>
+<td align="left"><strong>向前否定断言:</strong> x 没有被 y 紧随时匹配 x。例如，对于<code>/\d+(?!\。)/</code>，数字后没有跟随小数点的情况下才会得到匹配。对于<code>/\d+(?!\.)/.exec(3.141)</code>，匹配‘141’而不是‘3’。</td>
+</tr>
+<tr>
+<td align="left">(?&lt;=y)x</td>
+<td align="left"><strong>向后断言:</strong> x 跟随 y 的情况下匹配 x。例如，对于<code>/(?&lt;=Jack)Sprat/</code>，“Sprat”紧随“Jack”时才会得到匹配。对于`/(?&lt;=Jack</td>
+</tr>
+<tr>
+<td align="left">(?&lt;!y)x</td>
+<td align="left"><strong>向后否定断言:</strong> x 不跟随 y 时匹配 x。例如，对于<code>/(?&lt;!-)\d+/</code>，数字不紧随-符号的情况下才会得到匹配。对于<code>/(?&lt;!-)\d+/.exec(3)</code> ，“3”得到匹配。 而<code>/(?&lt;!-)\d+/.exec(-3)</code>的结果无匹配，这是由于数字之前有-符号。</td>
+</tr>
+</tbody></table>
+<h1 id="组和范围"><a href="#组和范围" class="headerlink" title="组和范围"></a>组和范围</h1><h1 id="附录：正则表达式中的特殊字符"><a href="#附录：正则表达式中的特殊字符" class="headerlink" title="附录：正则表达式中的特殊字符"></a>附录：正则表达式中的特殊字符</h1><p>摘自MDN</p>
+<table>
+<thead>
+<tr>
+<th align="left">字符</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-backslash"><code>\</code></a></td>
+<td align="left">依照下列规则匹配：在非特殊字符之前的反斜杠表示下一个字符是特殊字符，不能按照字面理解。例如，前面没有 “&quot; 的 “b” 通常匹配小写字母 “b”，即字符会被作为字面理解，无论它出现在哪里。但如果前面加了 “&quot;，它将不再匹配任何字符，而是表示一个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#note">字符边界</a>。在特殊字符之前的反斜杠表示下一个字符不是特殊字符，应该按照字面理解。详情请参阅下文中的 “转义（Escaping）” 部分。如果你想将字符串传递给 RegExp 构造函数，不要忘记在字符串字面量中反斜杠是转义字符。所以为了在模式中添加一个反斜杠，你需要在字符串字面量中转义它。<code>/[a-z]\s/i</code> 和 <code>new RegExp(&quot;[a-z]\\s&quot;, &quot;i&quot;)</code> 创建了相同的正则表达式：一个用于搜索后面紧跟着空白字符（<code>\s</code> 可看后文）并且在 a-z 范围内的任意字符的表达式。为了通过字符串字面量给 RegExp 构造函数创建包含反斜杠的表达式，你需要在字符串级别和正则表达式级别都对它进行转义。例如 <code>/[a-z]:\\/i</code> 和 <code>new RegExp(&quot;[a-z]:\\\\&quot;,&quot;i&quot;)</code> 会创建相同的表达式，即匹配类似 “C:&quot; 字符串。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-caret"><code>^</code></a></td>
+<td align="left">匹配输入的开始。如果多行标志被设置为 true，那么也匹配换行符后紧跟的位置。例如，<code>/^A/</code> 并不会匹配 “an A” 中的 ‘A’，但是会匹配 “An E” 中的 ‘A’。当 ‘<code>^</code>‘ 作为第一个字符出现在一个字符集合模式时，它将会有不同的含义。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-negated-character-set">反向字符集合</a> 一节有详细介绍和示例。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-dollar"><code>$</code></a></td>
+<td align="left">匹配输入的结束。如果多行标志被设置为 true，那么也匹配换行符前的位置。例如，<code>/t$/</code> 并不会匹配 “eater” 中的 ‘t’，但是会匹配 “eat” 中的 ‘t’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-asterisk"><code>*</code></a></td>
+<td align="left">匹配前一个表达式 0 次或多次。等价于 <code>&#123;0,&#125;</code>。例如，<code>/bo*/</code> 会匹配 “A ghost boooooed” 中的 ‘booooo’ 和 “A bird warbled” 中的 ‘b’，但是在 “A goat grunted” 中不会匹配任何内容。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-plus"><code>+</code></a></td>
+<td align="left">匹配前面一个表达式 1 次或者多次。等价于 <code>&#123;1,&#125;</code>。例如，<code>/a+/</code> 会匹配 “candy” 中的 ‘a’ 和 “caaaaaaandy” 中所有的 ‘a’，但是在 “cndy” 中不会匹配任何内容。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-questionmark"><code>?</code></a></td>
+<td align="left">匹配前面一个表达式 0 次或者 1 次。等价于 <code>&#123;0,1&#125;</code>。例如，<code>/e?le?/</code> 匹配 “angel” 中的 ‘el’、”angle” 中的 ‘le’ 以及 “oslo’ 中的 ‘l’。如果<strong>紧跟在任何量词 *、 +、? 或 {} 的后面</strong>，将会使量词变为<strong>非贪婪</strong>（匹配尽量少的字符），和缺省使用的<strong>贪婪模式</strong>（匹配尽可能多的字符）正好相反。例如，对 “123abc” 使用 <code>/\d+/</code> 将会匹配 “123”，而使用 <code>/\d+?/</code> 则只会匹配到 “1”。还用于先行断言中，如本表的 <code>x(?=y)</code> 和 <code>x(?!y)</code> 条目所述。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-dot"><code>.</code></a></td>
+<td align="left">（小数点）默认匹配除换行符之外的任何单个字符。例如，<code>/.n/</code> 将会匹配 “nay, an apple is on the tree” 中的 ‘an’ 和 ‘on’，但是不会匹配 ‘nay’。如果 <code>s</code> (“dotAll”) 标志位被设为 true，它也会匹配换行符。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-capturing-parentheses"><code>(x)</code></a></td>
+<td align="left">像下面的例子展示的那样，它会匹配 ‘x’ 并且记住匹配项。其中括号被称为<em>捕获括号</em>。模式 <code>/(foo) (bar) \1 \2/</code> 中的 ‘<code>(foo)</code>‘ 和 ‘<code>(bar)</code>‘ 匹配并记住字符串 “foo bar foo bar” 中前两个单词。模式中的 <code>\1</code> 和 <code>\2</code> 表示第一个和第二个被捕获括号匹配的子字符串，即 <code>foo</code> 和 <code>bar</code>，匹配了原字符串中的后两个单词。注意 <code>\1</code>、<code>\2</code>、…、<code>\n</code> 是用在正则表达式的匹配环节，详情可以参阅后文的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions$edit#special-backreference">\n</a> 条目。而在正则表达式的替换环节，则要使用像 <code>$1</code>、<code>$2</code>、…、<code>$n</code> 这样的语法，例如，<code>&#39;bar foo&#39;.replace(/(...) (...)/, &#39;$2 $1&#39;)</code>。<code>$&amp;</code> 表示整个用于匹配的原字符串。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-non-capturing-parentheses"><code>(?:x)</code></a></td>
+<td align="left">匹配 ‘x’ 但是不记住匹配项。这种括号叫作<em>非捕获括号</em>，使得你能够定义与正则表达式运算符一起使用的子表达式。看看这个例子 <code>/(?:foo)&#123;1,2&#125;/</code>。如果表达式是 <code>/foo&#123;1,2&#125;/</code>，<code>&#123;1,2&#125;</code> 将只应用于 ‘foo’ 的最后一个字符 ‘o’。如果使用非捕获括号，则 <code>&#123;1,2&#125;</code> 会应用于整个 ‘foo’ 单词。更多信息，可以参阅下文的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_parentheses">Using parentheses</a> 条目.</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-lookahead"><code>x(?=y)</code></a></td>
+<td align="left">匹配’x’仅仅当’x’后面跟着’y’.这种叫做先行断言。例如，/Jack(?=Sprat)/会匹配到’Jack’仅当它后面跟着’Sprat’。/Jack(?=Sprat|Frost)/匹配‘Jack’仅当它后面跟着’Sprat’或者是‘Frost’。但是‘Sprat’和‘Frost’都不是匹配结果的一部分。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-lookahead"><code>(?&lt;=y)</code></a>x</td>
+<td align="left">匹配’x’仅当’x’前面是’y’.这种叫做后行断言。例如，/(?&lt;=Jack)Sprat/会匹配到’ Sprat ‘仅仅当它前面是’ Jack ‘。/(?&lt;=Jack|Tom)Sprat/匹配‘ Sprat ’仅仅当它前面是’Jack’或者是‘Tom’。但是‘Jack’和‘Tom’都不是匹配结果的一部分。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-negated-look-ahead"><code>x(?!y)</code></a></td>
+<td align="left">仅仅当’x’后面不跟着’y’时匹配’x’，这被称为正向否定查找。例如，仅仅当这个数字后面没有跟小数点的时候，/\d+(?!.)/ 匹配一个数字。正则表达式/\d+(?!.)/.exec(“3.141”)匹配‘141’而不是‘3.141’</td>
+</tr>
+<tr>
+<td align="left"><code>(?&lt;!*y*)*x*</code></td>
+<td align="left">仅仅当’x’前面不是’y’时匹配’x’，这被称为反向否定查找。例如, 仅仅当这个数字前面没有负号的时候，<code>/(?&lt;!-)\d+/</code> 匹配一个数字。 <code>/(?&lt;!-)\d+/.exec(&#39;3&#39;)</code> 匹配到 “3”. <code>/(?&lt;!-)\d+/.exec(&#39;-3&#39;)</code> 因为这个数字前有负号，所以没有匹配到。</td>
+</tr>
+<tr>
+<td align="left">[`x</td>
+<td align="left">y`](<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-or">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-or</a>)</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-quantifier"><code>&#123;n&#125;</code></a></td>
+<td align="left">n 是一个正整数，匹配了前面一个字符刚好出现了 n 次。 比如， /a{2}/ 不会匹配“candy”中的’a’,但是会匹配“caandy”中所有的 a，以及“caaandy”中的前两个’a’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-quantifier"><code>&#123;n,&#125;</code></a></td>
+<td align="left">n是一个正整数，匹配前一个字符至少出现了n次。例如, /a{2,}/ 匹配 “aa”, “aaaa” 和 “aaaaa” 但是不匹配 “a”。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-quantifier-range"><code>&#123;n,m&#125;</code></a></td>
+<td align="left">n 和 m 都是整数。匹配前面的字符至少n次，最多m次。如果 n 或者 m 的值是0， 这个值被忽略。例如，/a{1, 3}/ 并不匹配“cndy”中的任意字符，匹配“candy”中的a，匹配“caandy”中的前两个a，也匹配“caaaaaaandy”中的前三个a。注意，当匹配”caaaaaaandy“时，匹配的值是“aaa”，即使原始的字符串中有更多的a。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-character-set"><code>[xyz]</code></a></td>
+<td align="left">一个字符集合。匹配方括号中的任意字符，包括<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types">转义序列</a>。你可以使用破折号（-）来指定一个字符范围。对于点（.）和星号（*）这样的特殊符号在一个字符集中没有特殊的意义。他们不必进行转义，不过转义也是起作用的。 例如，[abcd] 和[a-d]是一样的。他们都匹配”brisket”中的‘b’,也都匹配“city”中的‘c’。/[a-z.]+/ 和/[\w.]+/与字符串“test.i.ng”匹配。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-negated-character-set"><code>[^xyz]</code></a></td>
+<td align="left">一个反向字符集。也就是说， 它匹配任何没有包含在方括号中的字符。你可以使用破折号（-）来指定一个字符范围。任何普通字符在这里都是起作用的。例如，[^abc] 和 [^a-c] 是一样的。他们匹配”brisket”中的‘r’，也匹配“chop”中的‘h’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-backspace"><code>[\b]</code></a></td>
+<td align="left">匹配一个退格(U+0008)。（不要和\b混淆了。）</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-word-boundary"><code>\b</code></a></td>
+<td align="left">匹配一个词的边界。一个词的边界就是一个词不被另外一个“字”字符跟随的位置或者前面跟其他“字”字符的位置，例如在字母和空格之间。注意，匹配中不包括匹配的字边界。换句话说，一个匹配的词的边界的内容的长度是0。（不要和[\b]混淆了）使用”moon”举例： /\bm/匹配“moon”中的‘m’； /oo\b/并不匹配”moon”中的’oo’，因为’oo’被一个“字”字符’n’紧跟着。 /oon\b/匹配”moon”中的’oon’，因为’oon’是这个字符串的结束部分。这样他没有被一个“字”字符紧跟着。 /\w\b\w/将不能匹配任何字符串，因为在一个单词中间的字符永远也不可能同时满足没有“字”字符跟随和有“字”字符跟随两种情况。<strong>注意:</strong> JavaScript的正则表达式引擎将<a target="_blank" rel="noopener" href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.10.2.6">特定的字符集</a>定义为“字”字符。不在该集合中的任何字符都被认为是一个断词。这组字符相当有限：它只包括大写和小写的罗马字母，十进制数字和下划线字符。不幸的是，重要的字符，例如“é”或“ü”，被视为断词。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-non-word-boundary"><code>\B</code></a></td>
+<td align="left">匹配一个非单词边界。匹配如下几种情况：字符串第一个字符为非“字”字符字符串最后一个字符为非“字”字符两个单词字符之间两个非单词字符之间空字符串例如，/\B../匹配”noonday”中的’oo’, 而/y\B../匹配”possibly yesterday”中的’yes‘</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-control"><code>\c*X*</code></a></td>
+<td align="left">当X是处于A到Z之间的字符的时候，匹配字符串中的一个控制符。例如，<code>/\cM/</code> 匹配字符串中的 control-M (U+000D)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-digit"><code>\d</code></a></td>
+<td align="left">匹配一个数字<code>。``等价于[0-9]</code>。例如， <code>/\d/</code> 或者 <code>/[0-9]/</code> 匹配”B2 is the suite number.”中的’2’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-non-digit"><code>\D</code></a></td>
+<td align="left">匹配一个非数字字符<code>。``等价于[^0-9]</code>。例如， <code>/\D/</code> 或者 <code>/[^0-9]/</code> 匹配”B2 is the suite number.”中的’B’ 。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-form-feed"><code>\f</code></a></td>
+<td align="left">匹配一个换页符 (U+000C)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-line-feed"><code>\n</code></a></td>
+<td align="left">匹配一个换行符 (U+000A)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-carriage-return"><code>\r</code></a></td>
+<td align="left">匹配一个回车符 (U+000D)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-white-space"><code>\s</code></a></td>
+<td align="left">匹配一个空白字符，包括空格、制表符、换页符和换行符。等价于[ \f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]。例如, <code>/\s\w*/</code> 匹配”foo bar.”中的’ bar’。经测试，\s不匹配”<a target="_blank" rel="noopener" href="https://unicode-table.com/cn/180E/">\u180e</a>“，在当前版本Chrome(v80.0.3987.122)和Firefox(76.0.1)控制台输入/\s/.test(“\u180e”)均返回false。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-non-white-space"><code>\S</code></a></td>
+<td align="left">匹配一个非空白字符。等价于 <code>[^ </code>\f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff<code>]</code>。例如，<code>/\S\w*/</code> 匹配”foo bar.”中的’foo’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-tab"><code>\t</code></a></td>
+<td align="left">匹配一个水平制表符 (U+0009)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-vertical-tab"><code>\v</code></a></td>
+<td align="left">匹配一个垂直制表符 (U+000B)。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-word"><code>\w</code></a></td>
+<td align="left">匹配一个单字字符（字母、数字或者下划线）。等价于 <code>[A-Za-z0-9_]</code>。例如, <code>/\w/</code> 匹配 “apple,” 中的 ‘a’，”$5.28,”中的 ‘5’ 和 “3D.” 中的 ‘3’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-non-word"><code>\W</code></a></td>
+<td align="left">匹配一个非单字字符。等价于 <code>[^A-Za-z0-9_]</code>。例如, <code>/\W/</code> 或者 <code>/[^A-Za-z0-9_]/</code> 匹配 “50%.” 中的 ‘%’。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-backreference"><code>\*n*</code></a></td>
+<td align="left">在正则表达式中，它返回最后的第n个子捕获匹配的子字符串(捕获的数目以左括号计数)。比如 <code>/apple(,)\sorange\1/</code> 匹配”apple, orange, cherry, peach.”中的’apple, orange,’ 。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-null"><code>\0</code></a></td>
+<td align="left">匹配 NULL（U+0000）字符， 不要在这后面跟其它小数，因为 <code>\0&lt;digits&gt;</code> 是一个八进制转义序列。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-hex-escape"><code>\xhh</code></a></td>
+<td align="left">匹配一个两位十六进制数（\x00-\xFF）表示的字符。</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#special-unicode-escape"><code>\uhhhh</code></a></td>
+<td align="left">匹配一个四位十六进制数表示的 UTF-16 代码单元。</td>
+</tr>
+<tr>
+<td align="left"><code>\u&#123;hhhh&#125;或\u&#123;hhhhh&#125;</code></td>
+<td align="left">（仅当设置了u标志时）匹配一个十六进制数表示的 Unicode 字符。</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BUUCTF/" rel="tag"># BUUCTF</a>
+              <a href="/tags/Web/" rel="tag"># Web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/" rel="prev" title="20201226学习日记-BUUCTF小体验">
+                  <i class="fa fa-chevron-left"></i> 20201226学习日记-BUUCTF小体验
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Favorhau</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">43k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">39 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
