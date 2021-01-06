@@ -24,23 +24,26 @@
     var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="作为入门的ctf玩家，需要懂得常用的密码。">
+  <meta name="description" content="2021年的第一篇文章~ 关于Ubuntu下web服务器的搭建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20201217学习日记---cryto">
-<meta property="og:url" content="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/index.html">
+<meta property="og:title" content="ubuntu下web服务器搭建">
+<meta property="og:url" content="https://13590077975.github.io/2021/01/06/ubuntu%E4%B8%8Bweb%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Favorhau">
-<meta property="og:description" content="作为入门的ctf玩家，需要懂得常用的密码。">
+<meta property="og:description" content="2021年的第一篇文章~ 关于Ubuntu下web服务器的搭建">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.asciima.com/img/ascii-Table.jpg">
-<meta property="article:published_time" content="2020-12-17T15:59:26.000Z">
-<meta property="article:modified_time" content="2020-12-17T16:31:55.049Z">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/06/sERY9J.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/06/sEhm1H.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/06/sEvJ6x.md.png">
+<meta property="article:published_time" content="2021-01-06T08:19:45.000Z">
+<meta property="article:modified_time" content="2021-01-06T08:22:24.449Z">
 <meta property="article:author" content="Favorhau">
-<meta property="article:tag" content="cryto">
+<meta property="article:tag" content="apache">
+<meta property="article:tag" content="服务器搭建">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.asciima.com/img/ascii-Table.jpg">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/01/06/sERY9J.png">
 
 
-<link rel="canonical" href="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
+<link rel="canonical" href="https://13590077975.github.io/2021/01/06/ubuntu%E4%B8%8Bweb%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
 
 
 <script class="page-configurations">
@@ -53,7 +56,7 @@
   };
 </script>
 
-  <title>20201217学习日记---cryto | Favorhau</title>
+  <title>ubuntu下web服务器搭建 | Favorhau</title>
   
 
 
@@ -182,7 +185,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">加密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">对称性加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA"><span class="nav-number">2.2.1.</span> <span class="nav-text">RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9D%9E%E5%AF%B9%E7%A7%B0%E6%80%A7%E5%8A%A0%E5%AF%86"><span class="nav-number">2.2.2.</span> <span class="nav-text">其他非对称性加密</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C"><span class="nav-number">3.</span> <span class="nav-text">哈希</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Apache"><span class="nav-number">2.</span> <span class="nav-text">安装Apache</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85php"><span class="nav-number">3.</span> <span class="nav-text">安装php</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql"><span class="nav-number">4.</span> <span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85phpmyadmin"><span class="nav-number">5.</span> <span class="nav-text">安装phpmyadmin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">写在后面</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -263,7 +266,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/17/20201217%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---cryto/">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2021/01/06/ubuntu%E4%B8%8Bweb%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -276,7 +279,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          20201217学习日记---cryto
+          ubuntu下web服务器搭建
         </h1>
 
         <div class="post-meta-container">
@@ -286,16 +289,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-12-17 23:59:26" itemprop="dateCreated datePublished" datetime="2020-12-17T23:59:26+08:00">2020-12-17</time>
+      <time title="创建时间：2021-01-06 16:19:45 / 修改时间：16:22:24" itemprop="dateCreated datePublished" datetime="2021-01-06T16:19:45+08:00">2021-01-06</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-18 00:31:55" itemprop="dateModified" datetime="2020-12-18T00:31:55+08:00">2020-12-18</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -303,6 +300,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/" itemprop="url" rel="index"><span itemprop="name">CTF求生之路</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
         </span>
     </span>
 
@@ -314,14 +315,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>592</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -332,50 +333,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>作为入门的ctf玩家，需要懂得常用的密码。</p>
+        <p>2021年的第一篇文章~ 关于Ubuntu下web服务器的搭建</p>
 <a id="more"></a>
-<p>说到密码，很多人会把MD5、base64等混淆在一起（<del>包括我之前也会把md5称为“密码”</del>）。其实严格区分起来，应该是：</p>
-<ul>
-<li>加密(encipher/decipher)：加密传输信息，保证信息安全性，通过密钥和密文可以还原原始信息</li>
-<li>编码(encode/decode)：将数据转化成某种固定格式的编码信息，方便不同系统间的传输，通过解码编码信息可以得到原始信息。</li>
-<li>散列(hash)：也叫摘要或哈希，验证信息的完整性，不能通过哈希值还原原始信息。</li>
-</ul>
-<p>比起系统学习各种密码（编码），更多的应该是在做题、项目中习得，比方说url编码、base64编码等就经常会被使用。</p>
-<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>常见的编码：ASCII（美国信息交换标准代码）、Base64、URL编码、HTML编码、Unicode编码、UTF-8、莫斯电码、二维码</p>
-<ul>
-<li>ASCII<br>（American Standard Code for Information Interchange，美国标准信息交换代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是现今最通用的单字节编码系统，并等同于国际标准ISO/IEC 646。<img src="http://www.asciima.com/img/ascii-Table.jpg" alt="ASCII码表"></li>
-<li>Base64<br>一般可以用来处理在HTTP环境下传递较长的标识信息</li>
-<li>URL编码<br>这个是非常常见的 不能漏掉（相当于一种规范）</li>
-<li>Unicode<br>Unicode是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。<br><del>（其实一直对Unicode 、 gbk 、utf-8 不理解，直到我看到了这个）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gavin-num1/p/5170247.html">传送门</a></del><br>Unicode：OSI指定的编码标准；<br>GBK：Chinese Internal Code Specification 汉字内码扩展规范<br>UTF-8：一种针对Unicode的一种可变长度字符编码</li>
-<li>其他编码<br><del>其实编码给我的感觉就是：无密码的密码</del><br>剩下的还有诸如莫斯电码（不同网站出来的结果会不一样）、二维码这些。</li>
-</ul>
-<h1 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h1><p>加密常规一般可以分为，对称性加密目前研究已经相对充分，而非对称性加密还有很长的路需要走。</p>
-<ul>
-<li>对称性加密（symmetrical encryption）</li>
-<li>非对称性加密（Asymmetric encryption）</li>
-</ul>
-<h2 id="对称性加密"><a href="#对称性加密" class="headerlink" title="对称性加密"></a>对称性加密</h2><p>“对称密钥”的加密算法主要有DES、TripleDES、RC2、RC4、RC5和Blowfish等。<br>以上的加密算法基本准寻以下算法特征：</p>
-<ol>
-<li>加密方和解密方使用同一个密钥；</li>
-<li>加密解密的速度比较快，适合数据比较长时的使用；</li>
-<li>密钥传输的过程不安全，且容易被破解，密钥管理也比较麻烦；</li>
-</ol>
-<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>对称加密算法在加密和解密时使用的是同一个秘钥；而非对称加密算法需要两个密钥来进行加密和解密，这两个密钥是公开密钥（public key，简称公钥）和私有密钥（private key，简称私钥）<br>非对称性加密一般有：RSA、DSA、ECDSA。</p>
-<p><strong>说到非对称性加密 那就不得不说RSA了。</strong></p>
-<h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p>RSA公开密钥密码体制是一种使用不同的加密密钥与解密密钥，“由已知加密密钥推导出解密密钥在计算上是不可行的”密码体制。<br>找了挺多的体制解释，比较好的是这个<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html">传送门</a><br>梳理了一下思路 大概上就分为四个步骤。</p>
-<ol>
-<li>选取素数n</li>
-<li>选取大整数e</li>
-<li>确定密钥d</li>
-<li>公开n和e保存d<br>当然具体过程并没有那么简单。<br>而如果要破解此加密的关键就是选取的<em>大素数n</em>无法被分解（目前仅能分解到2048位)<br>但是<blockquote class="blockquote-center">
-<p>2020年12月4日，中国科学技术大学宣布该校潘建伟等人成功构建76个光子的量子计算机九章</p>
+<p>Google上面的搜索联想看出应该是挺热的搜索词<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/sERY9J"><img src="https://s3.ax1x.com/2021/01/06/sERY9J.png" alt="sERY9J.png"></a></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p><code>Ubuntu</code>是<code>Linux</code>的发行版，具有可视化的操作见面，可用作个人的小型服务器。<br><code>apache</code>http服务器是运用最广泛的web服务器，他提供了许多强大的功能包括动态加载模块、强大的媒体支持和广泛的集成等。</p>
+<p>我使用了相对稳定的<code>16.4</code>版本。</p>
+<h1 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h1><p>先更新本地文件包索引。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<p>再键入以下命令安装apache2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
 
-</blockquote>
-当然，要对付量子计算机，会有专门的量子密码<del>（仅了解，虽然我也不懂具体是啥）</del><br>诚然，从来就没有绝对的安全。安全都是相对的。<h3 id="其他非对称性加密"><a href="#其他非对称性加密" class="headerlink" title="其他非对称性加密"></a>其他非对称性加密</h3>对称性加密最经典的、以及最常见常用的应该是RSA。公钥密码体制采用的加密密钥(公开钥)和解密密钥(秘密钥)是不同的。由于加密密钥是公开的，密钥的分配和管理就很简单，而且能够很容易地实现数字签名，因此最适合于电子商务应用的需要。</li>
-</ol>
-<p><em>其主要的优点是：<br>(1)密钥分配简单。<br>(2)密钥的保存量少。<br>(3)可以满足互不相识的人之间进行私人谈话时的保密性要求。<br>(4)可以完成数字签名和数字鉴别。<br>但在实际应用中，公钥密码体制并没有完全取代私钥密码体制，这是因为公钥密码体制在应用中存在以下几个缺点：<br>(1)公钥密码是对大数进行操作，计算量特别浩大，速度远比不上私钥密码体制。<br>(2)公钥密码中要将相当一部分密码信息予以公布，势必对系统产生影响。<br>(3)在公钥密码中，若公钥文件被更改，则公钥被攻破。<br>（摘自百度百科）</em></p>
-<h1 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h1><p>常见摘要：MD5、SHA1（主要适用于数字签名标准DSS里面定义的数字签名算法）<br>无论多长的一段数据经过MD5之后都会变成指定的长度。<br>把MD5称为“加密”应当是不准确的，MD（Message-Digest Algorithm）信息摘要算法<br>最直观的应该是MD5<em>不可逆</em>，<del>（虽然有很多声称MD5破解的网站）</del><br>有MD5,也有MD4,MD2等。<br>目前没有软件能有效地破解 MD5。大多数时候只是把常见字符串的 MD5 存了起来为彩虹表，然后直接反查。<br>所谓”破解“的网站无非就是存了大量的可能密码。<br>比如 <a target="_blank" rel="noopener" href="https://cmd5.com/">https://cmd5.com/</a> </p>
-<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>CTF基本上看不懂的文字上面大都已经涵盖（可能只是小部分），在实战中（听说）还会出现诸如彩虹密码等<em>新型密码</em>，这就得看造化（yun qi）了。</p>
+<p>这时候在浏览器打开<code>localhost</code>可以看到安装完毕的apache。<br><a target="_blank" rel="noopener" href="https://imgchr.com/i/sEhm1H"><img src="https://s3.ax1x.com/2021/01/06/sEhm1H.png" alt="sEhm1H.png"></a></p>
+<h1 id="安装php"><a href="#安装php" class="headerlink" title="安装php"></a>安装php</h1><p>键入一下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install php7.0 libapache2-mod-php7.0</span><br></pre></td></tr></table></figure>
+<p>再让apache重新启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service apche2 restart</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h1><p>必不可少的一部分当然是<code>MYSQL</code>数据库啦</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server mysql-client</span><br></pre></td></tr></table></figure>
+<p>安装mysql服务器和客户端。</p>
+<h1 id="安装phpmyadmin"><a href="#安装phpmyadmin" class="headerlink" title="安装phpmyadmin"></a>安装phpmyadmin</h1><p>phpmyadmin真香~<br><code>phpMyAdmin</code>是一个网络接口，通过它可以管理mysql数据库。执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install phpmyadmin</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/sEvJ6x"><img src="https://s3.ax1x.com/2021/01/06/sEvJ6x.md.png" alt="sEvJ6x.md.png"></a><br>这样查看数据表还是容易很多的。</p>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>就这样一个<del>简易的</del>web服务器就搭建完成了。<br>apt好像有点有趣~</p>
 
     </div>
 
@@ -385,21 +365,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/cryto/" rel="tag"># cryto</a>
+              <a href="/tags/apache/" rel="tag"># apache</a>
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" rel="tag"># 服务器搭建</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/16/20201216%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%E6%B3%A8%E5%85%A5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="20201216学习日记---sql注入（二）">
-                  <i class="fa fa-chevron-left"></i> 20201216学习日记---sql注入（二）
+                <a href="/2020/12/27/Welcome%20to%20Regular%20Expression/" rel="prev" title="Welcome to Regular Expression">
+                  <i class="fa fa-chevron-left"></i> Welcome to Regular Expression
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/18/20201218%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%EF%BC%88%E4%B8%89%EF%BC%89/" rel="next" title="20201218学习日记---sql（三）">
-                  20201218学习日记---sql（三） <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
