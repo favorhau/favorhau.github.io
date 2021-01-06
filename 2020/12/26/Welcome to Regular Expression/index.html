@@ -27,22 +27,22 @@
   <meta name="description" content="欢迎来到正则表达式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Welcome to Regular Expression">
-<meta property="og:url" content="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/index.html">
+<meta property="og:url" content="https://13590077975.github.io/2020/12/26/Welcome%20to%20Regular%20Expression/index.html">
 <meta property="og:site_name" content="Favorhau">
 <meta property="og:description" content="欢迎来到正则表达式。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2018/09/regexp-cn.png">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-cbb30eb47ce2d46b3c0f64f7facd1086_720w.jpg?source=1940ef5c">
-<meta property="article:published_time" content="2020-12-29T15:19:45.000Z">
-<meta property="article:modified_time" content="2020-12-31T09:47:51.684Z">
+<meta property="article:published_time" content="2020-12-26T15:19:45.000Z">
+<meta property="article:modified_time" content="2021-01-06T04:45:24.770Z">
 <meta property="article:author" content="Favorhau">
-<meta property="article:tag" content="BUUCTF">
 <meta property="article:tag" content="Web">
+<meta property="article:tag" content="正则匹配">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2018/09/regexp-cn.png">
 
 
-<link rel="canonical" href="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/">
+<link rel="canonical" href="https://13590077975.github.io/2020/12/26/Welcome%20to%20Regular%20Expression/">
 
 
 <script class="page-configurations">
@@ -184,7 +184,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">正则基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">2.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">重复限定符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">2.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89"><span class="nav-number">2.4.</span> <span class="nav-text">转义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">断言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E7%B1%BB%E6%96%AD%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">边界类断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%AD%E8%A8%80"><span class="nav-number">3.2.</span> <span class="nav-text">其他断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E5%92%8C%E8%8C%83%E5%9B%B4"><span class="nav-number">4.</span> <span class="nav-text">组和范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">附录：正则表达式中的特殊字符</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">正则基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">2.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">重复限定符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">2.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89"><span class="nav-number">2.4.</span> <span class="nav-text">转义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">断言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E7%B1%BB%E6%96%AD%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">边界类断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%AD%E8%A8%80"><span class="nav-number">3.2.</span> <span class="nav-text">其他断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.3.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E5%92%8C%E8%8C%83%E5%9B%B4"><span class="nav-number">4.</span> <span class="nav-text">组和范围</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">4.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="nav-number">5.</span> <span class="nav-text">写在后面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-number">6.</span> <span class="nav-text">附录：正则表达式中的特殊字符</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -209,7 +209,7 @@
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -265,7 +265,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/29/Welcome%20to%20Regular%20Expression/">
+    <link itemprop="mainEntityOfPage" href="https://13590077975.github.io/2020/12/26/Welcome%20to%20Regular%20Expression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -289,14 +289,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-12-29 23:19:45" itemprop="dateCreated datePublished" datetime="2020-12-29T23:19:45+08:00">2020-12-29</time>
+      <time title="创建时间：2020-12-26 23:19:45" itemprop="dateCreated datePublished" datetime="2020-12-26T23:19:45+08:00">2020-12-26</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-31 17:47:51" itemprop="dateModified" datetime="2020-12-31T17:47:51+08:00">2020-12-31</time>
+        <time title="修改时间：2021-01-06 12:45:24" itemprop="dateModified" datetime="2021-01-06T12:45:24+08:00">2021-01-06</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -316,14 +316,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.4k</span>
+      <span>8.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -482,7 +482,29 @@
 <td align="left"><strong>向后否定断言:</strong> x 不跟随 y 时匹配 x。例如，对于<code>/(?&lt;!-)\d+/</code>，数字不紧随-符号的情况下才会得到匹配。对于<code>/(?&lt;!-)\d+/.exec(3)</code> ，“3”得到匹配。 而<code>/(?&lt;!-)\d+/.exec(-3)</code>的结果无匹配，这是由于数字之前有-符号。</td>
 </tr>
 </tbody></table>
-<h1 id="组和范围"><a href="#组和范围" class="headerlink" title="组和范围"></a>组和范围</h1><h1 id="附录：正则表达式中的特殊字符"><a href="#附录：正则表达式中的特殊字符" class="headerlink" title="附录：正则表达式中的特殊字符"></a>附录：正则表达式中的特殊字符</h1><p>摘自MDN</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>使用 <code>^</code>匹配输入的开头。在这个例子中，我们可以通过 /^A/ 正则表达式得到以A开头的水果。为了选择合适的水果，我们可以使用带有箭头函数的过滤方法.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fruits = [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Watermelon&quot;</span>, <span class="string">&quot;Orange&quot;</span>, <span class="string">&quot;Avocado&quot;</span>, <span class="string">&quot;Strawberry&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用正则 /^A/ 选择以&#x27;A&#x27;开头的水果.</span></span><br><span class="line"><span class="comment">// 这里的 &#x27;^&#x27; 只有一种含义: 匹配输入的开头.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fruitsStartsWithA = fruits.filter(<span class="function"><span class="params">fruit</span> =&gt;</span> <span class="regexp">/^A/</span>.test(fruit));</span><br><span class="line"><span class="built_in">console</span>.log(fruitsStartsWithA); <span class="comment">// [ &#x27;Apple&#x27;, &#x27;Avocado&#x27; ]</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="组和范围"><a href="#组和范围" class="headerlink" title="组和范围"></a>组和范围</h1><table>
+<thead>
+<tr>
+<th align="left">字符集</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">`<em>x</em></td>
+<td align="left"><em>y</em>`</td>
+</tr>
+<tr>
+<td align="left"><code>[xyz][a-c]</code></td>
+<td align="left">字符集。 匹配任何一个包含的字符。您可以使用连字符来指定字符范围，但如果连字符显示为方括号中的第一个或最后一个字符，则它将被视为作为普通字符包含在字符集中的文字连字符。也可以在字符集中包含字符类。例如, <code>[abcd]</code> 是与<code>[a-d]</code>.一样的，它们会 在”brisket” 中匹配 “b”,在 “chop” 中匹配 “c” .例如, <code>[abcd-]</code> 和<code>[-abcd]</code> 将会在 “brisket” 匹配 “b” , 在 “chop” 匹配 “c” , 并且匹配 “non-profit” 中的 “-“ (连字符)例如, <code>[\w-]</code> 是字符集 \w 和 “-”（连字符）的并集，与这种写法一样： <code>[A-Za-z0-9_-]</code>.。他们都会 在 “brisket”中匹配 “b”, 在 “chop”中匹配 “c”, 在 “non-profit” 中匹配 “n”。</td>
+</tr>
+</tbody></table>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算元音字母数</span></span><br><span class="line"><span class="keyword">var</span> aliceExcerpt = <span class="string">&quot;There was a long silence after this, and Alice could only hear whispers now and then.&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> regexpVowels = <span class="regexp">/[aeiouy]/g</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;Number of vowels:&quot;</span>, aliceExcerpt.match(regexpVowels).length);</span><br><span class="line"><span class="comment">// Number of vowels: 25</span></span><br></pre></td></tr></table></figure>
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>学习的大部分内容源自于MDN，同时也发现了写的很通俗易懂的文字-挂一个link<br><a target="_blank" rel="noopener" href="https://github.com/ziishaned/learn-regex/">https://github.com/ziishaned/learn-regex/</a><br><del>有一种从看文档到实际运用还有很远的感觉</del></p>
+<h1 id="附录：正则表达式中的特殊字符"><a href="#附录：正则表达式中的特殊字符" class="headerlink" title="附录：正则表达式中的特殊字符"></a>附录：正则表达式中的特殊字符</h1><p>摘自MDN</p>
 <table>
 <thead>
 <tr>
@@ -656,19 +678,22 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/BUUCTF/" rel="tag"># BUUCTF</a>
               <a href="/tags/Web/" rel="tag"># Web</a>
+              <a href="/tags/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D/" rel="tag"># 正则匹配</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/" rel="prev" title="20201226学习日记-BUUCTF小体验">
-                  <i class="fa fa-chevron-left"></i> 20201226学习日记-BUUCTF小体验
+                <a href="/2020/12/26/%E5%90%8E%E7%AB%AF%E4%BA%91%EF%BC%8CYES%EF%BC%81/" rel="prev" title="后端云，YES！">
+                  <i class="fa fa-chevron-left"></i> 后端云，YES！
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2020/12/26/20201226%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-BUUCTF%E5%B0%8F%E4%BD%93%E9%AA%8C/" rel="next" title="20201226学习日记-BUUCTF小体验">
+                  20201226学习日记-BUUCTF小体验 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -716,7 +741,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -727,13 +752,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">44k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">40 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
