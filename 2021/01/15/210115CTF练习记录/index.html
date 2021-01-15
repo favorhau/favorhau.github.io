@@ -24,17 +24,18 @@
     var CONFIG = {"hostname":"13590077975.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":30,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="RT">
+  <meta name="description" content="[BJDCTF2020]Easy MD5一开始查看，第一感觉有可能是弱密码碰撞。（但是后来也觉得不会那么傻逼吧，也木有密码长度的提示）尝试点击一下提交。抓取得到下面的隐藏信息 1select * from &#39;admin&#39; where password&#x3D;md5($pass,true)  大概率是密码绕过，（根据wp）这时候有一个有一个密码ffifdyopMD5之后结果是27">
 <meta property="og:type" content="article">
 <meta property="og:title" content="210115CTF练习记录">
 <meta property="og:url" content="https://13590077975.github.io/2021/01/15/210115CTF%E7%BB%83%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Favorhau">
-<meta property="og:description" content="RT">
+<meta property="og:description" content="[BJDCTF2020]Easy MD5一开始查看，第一感觉有可能是弱密码碰撞。（但是后来也觉得不会那么傻逼吧，也木有密码长度的提示）尝试点击一下提交。抓取得到下面的隐藏信息 1select * from &#39;admin&#39; where password&#x3D;md5($pass,true)  大概率是密码绕过，（根据wp）这时候有一个有一个密码ffifdyopMD5之后结果是27">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s3.ax1x.com/2021/01/15/sBkHe0.png">
 <meta property="og:image" content="https://s3.ax1x.com/2021/01/15/sBAAYD.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/15/sBejMQ.png">
 <meta property="article:published_time" content="2021-01-15T14:19:45.000Z">
-<meta property="article:modified_time" content="2021-01-15T14:15:53.276Z">
+<meta property="article:modified_time" content="2021-01-15T14:59:28.316Z">
 <meta property="article:author" content="Favorhau">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -183,7 +184,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BJDCTF2020-Easy-MD5"><span class="nav-number">1.</span> <span class="nav-text">[BJDCTF2020]Easy MD5</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BJDCTF2020-Easy-MD5"><span class="nav-number">1.</span> <span class="nav-text">[BJDCTF2020]Easy MD5</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98-2019-BuyFlag"><span class="nav-number">2.</span> <span class="nav-text">[极客大挑战 2019]BuyFlag</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -289,7 +290,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-15 22:19:45 / 修改时间：22:15:53" itemprop="dateCreated datePublished" datetime="2021-01-15T22:19:45+08:00">2021-01-15</time>
+      <time title="创建时间：2021-01-15 22:19:45 / 修改时间：22:59:28" itemprop="dateCreated datePublished" datetime="2021-01-15T22:19:45+08:00">2021-01-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>882</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -327,9 +328,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>RT</p>
-<a id="more"></a>
-<h1 id="BJDCTF2020-Easy-MD5"><a href="#BJDCTF2020-Easy-MD5" class="headerlink" title="[BJDCTF2020]Easy MD5"></a>[BJDCTF2020]Easy MD5</h1><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/sBkHe0"><img src="https://s3.ax1x.com/2021/01/15/sBkHe0.png" alt="sBkHe0.png"></a><br>一开始查看，第一感觉有可能是弱密码碰撞。（但是后来也觉得不会那么傻逼吧，也木有密码长度的提示）尝试点击一下提交。抓取得到下面的隐藏信息</p>
+        <h1 id="BJDCTF2020-Easy-MD5"><a href="#BJDCTF2020-Easy-MD5" class="headerlink" title="[BJDCTF2020]Easy MD5"></a>[BJDCTF2020]Easy MD5</h1><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/sBkHe0"><img src="https://s3.ax1x.com/2021/01/15/sBkHe0.png" alt="sBkHe0.png"></a><br>一开始查看，第一感觉有可能是弱密码碰撞。（但是后来也觉得不会那么傻逼吧，也木有密码长度的提示）尝试点击一下提交。抓取得到下面的隐藏信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from &#39;admin&#39; where password&#x3D;md5($pass,true)</span><br></pre></td></tr></table></figure>
 
 <p>大概率是密码绕过，<del>（根据wp）</del>这时候有一个有一个密码<code>ffifdyop</code>MD5之后结果是<code>276f722736c95d99e921722cf9ed621c</code>，而这个字符串前几位刚好是’ or ‘6， Mysql 刚好又会把 hex 转成 ascii 解释。</p>
@@ -345,6 +344,28 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">param1[]=111&amp;param2[]=222</span><br></pre></td></tr></table></figure>
 
 <p>得到flag。。</p>
+<h1 id="极客大挑战-2019-BuyFlag"><a href="#极客大挑战-2019-BuyFlag" class="headerlink" title="[极客大挑战 2019]BuyFlag"></a>[极客大挑战 2019]BuyFlag</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flag need your 100000000 money</span><br></pre></td></tr></table></figure>
+<p>有点像遇到过修改post数据包的考点，仔细看一下下面还有提示</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">If you want to buy the FLAG:</span><br><span class="line">You must be a student from CUIT!!!</span><br><span class="line">You must be answer the correct password!!! </span><br></pre></td></tr></table></figure>
+
+<p>三个条件</p>
+<ul>
+<li>用户身份</li>
+<li>password</li>
+<li>money</li>
+</ul>
+<p>一眼过去觉得最容易解决的就是<strong>money</strong>了，按照他的来就好。</p>
+<p>然后关于<strong>password</strong>去看了一些源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">	~~~post money <span class="keyword">and</span> password~~~</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>])) &#123;</span><br><span class="line">	<span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">	<span class="keyword">if</span> (is_numeric(<span class="variable">$password</span>)) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;password can&#x27;t be number&lt;/br&gt;&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">elseif</span> (<span class="variable">$password</span> == <span class="number">404</span>) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;Password Right!&lt;/br&gt;&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>基本上就是弱类型比较</p>
+<p>接着的话就是用户身份（我查了一下wp才了解）</p>
+<p>一直有定式思维用user-agent，这一次改的是cookie。</p>
+<p>把<code>user=0</code>改成<code>user=1</code>即可。</p>
+<p>中途还提示了money参数过长，这时候转换成科学计数法。</p>
+<p>，构造payload。</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/sBejMQ"><img src="https://s3.ax1x.com/2021/01/15/sBejMQ.png" alt="sBejMQ.png"></a></p>
+<p>得到flag。</p>
 
     </div>
 
@@ -427,13 +448,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">46k</span>
+    <span title="站点总字数">47k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">42 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
