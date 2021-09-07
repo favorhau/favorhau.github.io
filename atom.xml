@@ -6,7 +6,7 @@
   <link href="http://favorhau.github.io/atom.xml" rel="self"/>
   
   <link href="http://favorhau.github.io/"/>
-  <updated>2021-07-29T13:52:18.633Z</updated>
+  <updated>2021-09-07T09:15:00.396Z</updated>
   <id>http://favorhau.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Restful API设计规范</title>
+    <link href="http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/"/>
+    <id>http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</id>
+    <published>2021-09-07T02:46:25.000Z</published>
+    <updated>2021-09-07T09:15:00.396Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在尝试正式进行api文档编辑的过程当中，意图通过之前在写代码过程当中所积累到的接口设计经验编写一个高效清晰的api接口，但是若不经过一个api规范知识的摄取过程，效果可能不够好。在这里阅读了几份比较好的有关<code>RestfulAPI</code>的接口设计，结合自己的经验和风格，作出一些总结。</p><h1 id="HTTP方法规范"><a href="#HTTP方法规范" class="headerlink" title="HTTP方法规范"></a>HTTP方法规范</h1><blockquote><p> 查询数据使用<code>get</code>，创建数据使用<code>post</code>，更新数据使用<code>put</code>。</p></blockquote><p>但是往往在实际的工程当中使用<code>put</code>方法的比较少，建议以<code>?method=put</code>方式使用</p><p>如:</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST /v1/users/&lt;id&gt; //创建用户</span><br><span class="line">GET /v1/users/&lt;id&gt; //查询用户</span><br></pre></td></tr></table></figure><h1 id="资源规范"><a href="#资源规范" class="headerlink" title="资源规范"></a>资源规范</h1><blockquote><p>资源命名的时候需要是名词并且采用复数（尽管资源可能只有一个）</p></blockquote><p>如：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/vi/users //获取用户信息集合</span><br></pre></td></tr></table></figure><p>获取单个用户信息数据</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users/&lt;id&gt;</span><br></pre></td></tr></table></figure><p>在此过程当中url资源可能会层级很高，如：<code>/v1/1/2/</code></p><p>此时可以转换为别的方式查询</p><p>如</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users/?id=200121228</span><br></pre></td></tr></table></figure><h1 id="请求头规范"><a href="#请求头规范" class="headerlink" title="请求头规范"></a>请求头规范</h1><p><strong>Content-Type: application/json</strong></p><p>采用<code>json</code>进行传输，不采用<code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code></p><p>API 返回的数据格式，不应该是纯文本，而应该是一个 JSON 对象，因为这样才能返回标准的结构化数据。所以，服务器回应的 HTTP 头的Content-Type属性要设为application/json。</p><p>客户端请求时，也要明确告诉服务器，可以接受 JSON 格式，即请求的 HTTP 头的ACCEPT属性也要设成application/json。</p><h1 id="API规范与鉴权机制"><a href="#API规范与鉴权机制" class="headerlink" title="API规范与鉴权机制"></a>API规范与鉴权机制</h1><p>在前后端分离项目实际的接口鉴权当中，会遇到跨域的用户鉴权问题，一般通常采用以下两种方式</p><ol><li>Token机制</li><li>cookie机制</li></ol><ul><li>cookie机制</li></ul><p>cookie机制一般的流程为</p><p>1、用户向服务器发送用户名和密码。</p><p>2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。</p><p>3、服务器向用户返回一个 session_id，写入用户的 Cookie。</p><p>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。</p><p>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p><blockquote><p> 但这样显然服务器的扩展性不好，单机当然没有问题，如果是服务器集群，或者是跨域的服务导向架构，就要求 session 数据共享，每台服务器都能够读取 session。</p></blockquote><p>服务器保持无状态扩展性会更好</p><p>因此token就出现了</p><p>在这里引入<code>Restful Api</code>的<code>JWT</code>机制</p><p>简要概括就是在params（参数）处添加一个参数<code>token</code>，</p><p>token服务器保存一份，通常第一次请求服务器（登录）的时候产生，返回给客户端</p><p>因此客户端在后续的请求当中都需要携带上<code>token</code>，</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users?token=*****</span><br></pre></td></tr></table></figure><p>用于服务器校验</p><p>token可视为令牌，服务器里面蕴含了用户信息</p><p>每次请求的时候带上<code>token</code>，<code>token</code>里面也应该蕴含过期时间信息。</p><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul><li>版本信息</li></ul><p>版本信息可以蕴含在api接口中，如</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users</span><br></pre></td></tr></table></figure><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>【1】<a href="https://restfulapi.cn/">Restful Api官网</a></p><p>【2】<a href="https://restfulapi.cn/page/2">JWT机制</a></p><p>【3】<a href="http://novoland.github.io/%E8%AE%BE%E8%AE%A1/2015/08/17/Restful%20API%20%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.html">Restful API 的设计规范-克鲁思卡尔的博客</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;在尝试正式进行api文档编辑的过程当中，意图通过之前在写代码过程当中所积累到的接口设计经验编写一个高效清晰的api接口，但是若不经过一个ap</summary>
+      
+    
+    
+    
+    <category term="restful api" scheme="http://favorhau.github.io/categories/restful-api/"/>
+    
+    <category term="api" scheme="http://favorhau.github.io/categories/restful-api/api/"/>
+    
+    <category term="后端" scheme="http://favorhau.github.io/categories/restful-api/api/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>客户端认证机制</title>
@@ -41,22 +67,23 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://favorhau.github.io/2021/07/27/hello-world/"/>
-    <id>http://favorhau.github.io/2021/07/27/hello-world/</id>
-    <published>2021-07-27T14:29:04.329Z</published>
-    <updated>2021-07-28T03:13:49.783Z</updated>
+    <title>CTF备忘录</title>
+    <link href="http://favorhau.github.io/2021/01/15/CTF%E5%A4%87%E5%BF%98%E5%BD%95/"/>
+    <id>http://favorhau.github.io/2021/01/15/CTF%E5%A4%87%E5%BF%98%E5%BD%95/</id>
+    <published>2021-01-15T14:19:45.000Z</published>
+    <updated>2021-01-16T14:10:08.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a>/</p>]]></content>
+    <content type="html"><![CDATA[<p>CTF常用密码备忘录（持续更新）</p><span id="more"></span><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>摘录自己学习过程当中遇到的常用CTF密码，可供以后使用。</p><h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><ul><li><code>ffifdyop</code>MD5之后结果是<code>276f722736c95d99e921722cf9ed621c</code>，而这个字符串前几位刚好是’ or ‘6， Mysql 刚好又会把 hex 转成 ascii 解释。（mysql万能密码）</li><li><code>QNKCDZO</code>MD5:<code>0e830400451993494058024219903391</code><br><code>s878926199a</code> MD5:<code>0e545993274517709034328855841020</code><br>（弱类型比较）</li><li><code>https://github.com/noraj/flask-session-cookie-manager</code>用于<code>flask</code>框架session伪造</li></ul>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
-      
+    <summary type="html">&lt;p&gt;CTF常用密码备忘录（持续更新）&lt;/p&gt;</summary>
     
     
     
+    <category term="CTF求生之路" scheme="http://favorhau.github.io/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/"/>
+    
+    
+    <category term="CTF" scheme="http://favorhau.github.io/tags/CTF/"/>
     
   </entry>
   
@@ -71,27 +98,6 @@
     
     
     <summary type="html">&lt;p&gt;RT&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="CTF求生之路" scheme="http://favorhau.github.io/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/"/>
-    
-    
-    <category term="CTF" scheme="http://favorhau.github.io/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CTF备忘录</title>
-    <link href="http://favorhau.github.io/2021/01/15/CTF%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    <id>http://favorhau.github.io/2021/01/15/CTF%E5%A4%87%E5%BF%98%E5%BD%95/</id>
-    <published>2021-01-15T14:19:45.000Z</published>
-    <updated>2021-01-16T14:10:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>CTF常用密码备忘录（持续更新）</p><span id="more"></span><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>摘录自己学习过程当中遇到的常用CTF密码，可供以后使用。</p><h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><ul><li><code>ffifdyop</code>MD5之后结果是<code>276f722736c95d99e921722cf9ed621c</code>，而这个字符串前几位刚好是’ or ‘6， Mysql 刚好又会把 hex 转成 ascii 解释。（mysql万能密码）</li><li><code>QNKCDZO</code>MD5:<code>0e830400451993494058024219903391</code><br><code>s878926199a</code> MD5:<code>0e545993274517709034328855841020</code><br>（弱类型比较）</li><li><code>https://github.com/noraj/flask-session-cookie-manager</code>用于<code>flask</code>框架session伪造</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;CTF常用密码备忘录（持续更新）&lt;/p&gt;</summary>
     
     
     
@@ -383,9 +389,9 @@
     
     
     
-    <category term="码农日常" scheme="http://favorhau.github.io/categories/%E7%A0%81%E5%86%9C%E6%97%A5%E5%B8%B8/"/>
-    
     <category term="CTF求生之路" scheme="http://favorhau.github.io/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/"/>
+    
+    <category term="码农日常" scheme="http://favorhau.github.io/categories/%E7%A0%81%E5%86%9C%E6%97%A5%E5%B8%B8/"/>
     
     
   </entry>

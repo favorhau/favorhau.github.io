@@ -48,7 +48,7 @@
     
     <title>
         
-            归档: 2021/7 | 
+            Restful API设计规范 | 
         
         favorhau&#39;s blog
     </title>
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="favorhau&#39;s blog">
-    <meta name="msapplication-starturl" content="http://favorhau.github.io/archives/2021/07/">
+    <meta name="msapplication-starturl" content="http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="favorhau&#39;s blog">
@@ -235,13 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://favorhau.github.io/archives/2021/07/">
+    <meta property="og:url" content="http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2021/7 | favorhau&#39;s blog">
+    <meta property="og:title" content="Restful API设计规范 | favorhau&#39;s blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
+    
+        <meta property="article:published_time" content="Tue Sep 07 2021 10:46:25 GMT+0800">
+        <meta property="article:modified_time" content="Tue Sep 07 2021 17:15:00 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,13 +252,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://favorhau.github.io/archives/2021/07/index.html" />
+        <link rel="canonical" href="http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html",
+    "headline": "Restful API设计规范",
+    "datePublished": "Tue Sep 07 2021 10:46:25 GMT+0800",
+    "dateModified": "Tue Sep 07 2021 17:15:00 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "favorhau",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "favorhau&#39;s blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
 
 
     
@@ -290,98 +323,307 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%89%8D%E8%A8%80"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HTTP%E6%96%B9%E6%B3%95%E8%A7%84%E8%8C%83"><span class="post-toc-number">2.</span> <span class="post-toc-text">HTTP方法规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%B5%84%E6%BA%90%E8%A7%84%E8%8C%83"><span class="post-toc-number">3.</span> <span class="post-toc-text">资源规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E8%AF%B7%E6%B1%82%E5%A4%B4%E8%A7%84%E8%8C%83"><span class="post-toc-number">4.</span> <span class="post-toc-text">请求头规范</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#API%E8%A7%84%E8%8C%83%E4%B8%8E%E9%89%B4%E6%9D%83%E6%9C%BA%E5%88%B6"><span class="post-toc-number">5.</span> <span class="post-toc-text">API规范与鉴权机制</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96"><span class="post-toc-number">6.</span> <span class="post-toc-text">其他</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2021/07/29/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/">客户端认证机制</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            写在前面
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2021/07/29/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="favorhau's avatar">
-            </div>
-            <div>
-                <strong>favorhau</strong>
-                <span>7月 29, 2021</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>, <a class="post_category-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/cookies/">cookies</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Restful API设计规范
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>favorhau</strong>
+        <span>9月 07, 2021</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Restful API设计规范&url=http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html&pic=http://favorhau.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Restful API设计规范&url=http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html&via=favorhau" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在尝试正式进行api文档编辑的过程当中，意图通过之前在写代码过程当中所积累到的接口设计经验编写一个高效清晰的api接口，但是若不经过一个api规范知识的摄取过程，效果可能不够好。在这里阅读了几份比较好的有关<code>RestfulAPI</code>的接口设计，结合自己的经验和风格，作出一些总结。</p>
+<h1 id="HTTP方法规范"><a href="#HTTP方法规范" class="headerlink" title="HTTP方法规范"></a>HTTP方法规范</h1><blockquote>
+<p> 查询数据使用<code>get</code>，创建数据使用<code>post</code>，更新数据使用<code>put</code>。</p>
+</blockquote>
+<p>但是往往在实际的工程当中使用<code>put</code>方法的比较少，建议以<code>?method=put</code>方式使用</p>
+<p>如:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST /v1/users/&lt;id&gt; //创建用户</span><br><span class="line">GET /v1/users/&lt;id&gt; //查询用户</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="资源规范"><a href="#资源规范" class="headerlink" title="资源规范"></a>资源规范</h1><blockquote>
+<p>资源命名的时候需要是名词并且采用复数（尽管资源可能只有一个）</p>
+</blockquote>
+<p>如：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/vi/users //获取用户信息集合</span><br></pre></td></tr></table></figure>
+
+<p>获取单个用户信息数据</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users/&lt;id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在此过程当中url资源可能会层级很高，如：<code>/v1/1/2/</code></p>
+<p>此时可以转换为别的方式查询</p>
+<p>如</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users/?id=200121228</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="请求头规范"><a href="#请求头规范" class="headerlink" title="请求头规范"></a>请求头规范</h1><p><strong>Content-Type: application/json</strong></p>
+<p>采用<code>json</code>进行传输，不采用<code>application/x-www-form-urlencoded</code>、<code>multipart/form-data</code></p>
+<p>API 返回的数据格式，不应该是纯文本，而应该是一个 JSON 对象，因为这样才能返回标准的结构化数据。所以，服务器回应的 HTTP 头的Content-Type属性要设为application/json。</p>
+<p>客户端请求时，也要明确告诉服务器，可以接受 JSON 格式，即请求的 HTTP 头的ACCEPT属性也要设成application/json。</p>
+<h1 id="API规范与鉴权机制"><a href="#API规范与鉴权机制" class="headerlink" title="API规范与鉴权机制"></a>API规范与鉴权机制</h1><p>在前后端分离项目实际的接口鉴权当中，会遇到跨域的用户鉴权问题，一般通常采用以下两种方式</p>
+<ol>
+<li>Token机制</li>
+<li>cookie机制</li>
+</ol>
+<ul>
+<li>cookie机制</li>
+</ul>
+<p>cookie机制一般的流程为</p>
+<p>1、用户向服务器发送用户名和密码。</p>
+<p>2、服务器验证通过后，在当前对话（session）里面保存相关数据，比如用户角色、登录时间等等。</p>
+<p>3、服务器向用户返回一个 session_id，写入用户的 Cookie。</p>
+<p>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。</p>
+<p>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p>
+<blockquote>
+<p> 但这样显然服务器的扩展性不好，单机当然没有问题，如果是服务器集群，或者是跨域的服务导向架构，就要求 session 数据共享，每台服务器都能够读取 session。</p>
+</blockquote>
+<p>服务器保持无状态扩展性会更好</p>
+<p>因此token就出现了</p>
+<p>在这里引入<code>Restful Api</code>的<code>JWT</code>机制</p>
+<p>简要概括就是在params（参数）处添加一个参数<code>token</code>，</p>
+<p>token服务器保存一份，通常第一次请求服务器（登录）的时候产生，返回给客户端</p>
+<p>因此客户端在后续的请求当中都需要携带上<code>token</code>，</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users?token=*****</span><br></pre></td></tr></table></figure>
+
+<p>用于服务器校验</p>
+<p>token可视为令牌，服务器里面蕴含了用户信息</p>
+<p>每次请求的时候带上<code>token</code>，<code>token</code>里面也应该蕴含过期时间信息。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><ul>
+<li>版本信息</li>
+</ul>
+<p>版本信息可以蕴含在api接口中，如</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/v1/users</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>【1】<a target="_blank" rel="noopener" href="https://restfulapi.cn/">Restful Api官网</a></p>
+<p>【2】<a target="_blank" rel="noopener" href="https://restfulapi.cn/page/2">JWT机制</a></p>
+<p>【3】<a target="_blank" rel="noopener" href="http://novoland.github.io/%E8%AE%BE%E8%AE%A1/2015/08/17/Restful%20API%20%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.html">Restful API 的设计规范-克鲁思卡尔的博客</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 DISQUS -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://favorhau.github.io/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document;
+                var s = d.createElement('script');
+                s.src = '//.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+</script>
+
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2021/07/29/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
