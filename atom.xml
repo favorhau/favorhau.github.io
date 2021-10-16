@@ -6,7 +6,7 @@
   <link href="http://favorhau.github.io/atom.xml" rel="self"/>
   
   <link href="http://favorhau.github.io/"/>
-  <updated>2021-09-07T09:15:00.396Z</updated>
+  <updated>2021-10-16T04:55:42.303Z</updated>
   <id>http://favorhau.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用pyinstaller在64位系统打包32位exe文件</title>
+    <link href="http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/"/>
+    <id>http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/</id>
+    <published>2021-10-16T04:55:45.000Z</published>
+    <updated>2021-10-16T04:55:42.303Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这些天为了解决一些需求，解决python程序打包exe并且能够兼容xp系统的问题，看过许多在stackoverflow等网站上面的回答，觉得在实际的操作过程当中反而还会遇到过一些相对严重的问题，以至于无法解决。经过多种测试之后找到了一种比较有效的方法。</p><h1 id="目前搜寻到的不太奏效方法"><a href="#目前搜寻到的不太奏效方法" class="headerlink" title="目前搜寻到的不太奏效方法"></a>目前搜寻到的不太奏效方法</h1><h2 id="使用anaconda安装pypiwin32等"><a href="#使用anaconda安装pypiwin32等" class="headerlink" title="使用anaconda安装pypiwin32等"></a>使用anaconda安装pypiwin32等</h2><p>这种方法实测之后效果并不一定好，因为安装过程当中也有可能会报错。并且会出现一些诸如no module found等问题</p><h2 id="直接使用虚拟机-XP系统进行打包"><a href="#直接使用虚拟机-XP系统进行打包" class="headerlink" title="直接使用虚拟机+XP系统进行打包"></a>直接使用虚拟机+XP系统进行打包</h2><p>这样会出现的问题</p><h1 id="有效的方法"><a href="#有效的方法" class="headerlink" title="有效的方法"></a>有效的方法</h1><h2 id="安装python3-4-4"><a href="#安装python3-4-4" class="headerlink" title="安装python3.4.4"></a>安装python3.4.4</h2><p>python3.4.4是最后支持Windows 32位的程序，下载地址：<br><a href="https://www.python.org/downloads/release/python-344/">https://www.python.org/downloads/release/python-344/</a><br><img src="https://img-blog.csdnimg.cn/41e2b7d1d39840c7b67d78295749ee1a.png" alt="图片"><br>在这里需要注意的是安装的时候需要配置环境变量，为了让效果最佳建议先卸载了原来的python版本，并且把此版本添加到环境变量当中</p><h2 id="更新pip"><a href="#更新pip" class="headerlink" title="更新pip"></a>更新pip</h2><p>此版本对应的最高的pip是19.1.1版本，但是在实际的upgrade当中可能会因为权限冲突，导致一些问题。因此可以采用<code>get-pip.py</code>进行安装</p><p>在Windows命令行输入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://bootstrap.pypa.io/pip/3.4/get-pip.py -O get-pip.py</span><br></pre></td></tr></table></figure><p>将<code>get-pip.py</code>下载到当前目录<br>然后再运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python get-pip.py</span><br></pre></td></tr></table></figure><p>即可以完成pip19.1.1的安装</p><h2 id="安装对应版本的pyinstaller"><a href="#安装对应版本的pyinstaller" class="headerlink" title="安装对应版本的pyinstaller"></a>安装对应版本的pyinstaller</h2><p>这一步是最关键的一步，也是经常会遇到问题的一步，不论是怎么安装<br>都会报错<code>Python: setup.py egg_info failed with error code 1 </code>错误，<code>Stackoverflow</code>上面的解决方法为：<br><a href="https://stackoverflow.com/questions/49985465/python-setup-py-egg-info-failed-with-error-code-1">https://stackoverflow.com/questions/49985465/python-setup-py-egg-info-failed-with-error-code-1</a><br>但是这样一样会报出相关的错误<br>然而在pyinstaller的github release上面可以看到的是符合版本的为pyinstaller3.0<br>故可以</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller==3.0</span><br></pre></td></tr></table></figure><h2 id="打包应用"><a href="#打包应用" class="headerlink" title="打包应用"></a>打包应用</h2><p>在此之后即可以使用pyinstaller去打包32位的程序了。并且可尝试在Windows10中，使用兼容模式运行，尝试运行。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h1&gt;&lt;p&gt;这些天为了解决一些需求，解决python程序打包exe并且能够兼容xp系统的问题，看过许多在stackoverflow等网站</summary>
+      
+    
+    
+    
+    <category term="码农日常" scheme="http://favorhau.github.io/categories/%E7%A0%81%E5%86%9C%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="python" scheme="http://favorhau.github.io/tags/python/"/>
+    
+    <category term="pyinstaller" scheme="http://favorhau.github.io/tags/pyinstaller/"/>
+    
+  </entry>
   
   <entry>
     <title>Restful API设计规范</title>

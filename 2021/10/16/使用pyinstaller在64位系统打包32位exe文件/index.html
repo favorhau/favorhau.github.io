@@ -48,7 +48,7 @@
     
     <title>
         
-            分类: favorhau | 
+            使用pyinstaller在64位系统打包32位exe文件 | 
         
         favorhau&#39;s blog
     </title>
@@ -59,7 +59,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="">
+    <meta name="keywords" content=",python,pyinstaller">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="favorhau&#39;s blog">
-    <meta name="msapplication-starturl" content="http://favorhau.github.io/categories/favorhau/">
+    <meta name="msapplication-starturl" content="http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="favorhau&#39;s blog">
@@ -235,13 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://favorhau.github.io/categories/favorhau/">
+    <meta property="og:url" content="http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="分类: favorhau | favorhau&#39;s blog">
+    <meta property="og:title" content="使用pyinstaller在64位系统打包32位exe文件 | favorhau&#39;s blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="python"> <meta property="og:article:tag" content="pyinstaller"> 
 
+    
+        <meta property="article:published_time" content="Sat Oct 16 2021 12:55:45 GMT+0800">
+        <meta property="article:modified_time" content="Sat Oct 16 2021 12:55:42 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,13 +252,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://favorhau.github.io/categories/favorhau/index.html" />
+        <link rel="canonical" href="http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html",
+    "headline": "使用pyinstaller在64位系统打包32位exe文件",
+    "datePublished": "Sat Oct 16 2021 12:55:45 GMT+0800",
+    "dateModified": "Sat Oct 16 2021 12:55:42 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "favorhau",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "favorhau&#39;s blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",python,pyinstaller",
+    "description": "",
+}
+</script>
 
 
     
@@ -290,98 +323,260 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%9B%AE%E5%89%8D%E6%90%9C%E5%AF%BB%E5%88%B0%E7%9A%84%E4%B8%8D%E5%A4%AA%E5%A5%8F%E6%95%88%E6%96%B9%E6%B3%95"><span class="post-toc-number">2.</span> <span class="post-toc-text">目前搜寻到的不太奏效方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8anaconda%E5%AE%89%E8%A3%85pypiwin32%E7%AD%89"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">使用anaconda安装pypiwin32等</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA-XP%E7%B3%BB%E7%BB%9F%E8%BF%9B%E8%A1%8C%E6%89%93%E5%8C%85"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">直接使用虚拟机+XP系统进行打包</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E6%9C%89%E6%95%88%E7%9A%84%E6%96%B9%E6%B3%95"><span class="post-toc-number">3.</span> <span class="post-toc-text">有效的方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85python3-4-4"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">安装python3.4.4</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%9B%B4%E6%96%B0pip"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">更新pip</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%AE%89%E8%A3%85%E5%AF%B9%E5%BA%94%E7%89%88%E6%9C%AC%E7%9A%84pyinstaller"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">安装对应版本的pyinstaller</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%89%93%E5%8C%85%E5%BA%94%E7%94%A8"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">打包应用</span></a></li></ol></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2020/12/04/favorhau%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">favorhau的第一篇博客</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            第一条博客写一下感受 广州的冬天 风刺骨 很冷关于博客搭建：感谢好友situ介绍的工具与文档让我少走弯路
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2020/12/04/favorhau%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="favorhau's avatar">
-            </div>
-            <div>
-                <strong>favorhau</strong>
-                <span>12月 04, 2020</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/favorhau/">favorhau</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                使用pyinstaller在64位系统打包32位exe文件
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>favorhau</strong>
+        <span>10月 16, 2021</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/pyinstaller/" rel="tag">pyinstaller</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/python/" rel="tag">python</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=使用pyinstaller在64位系统打包32位exe文件&url=http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html&pic=http://favorhau.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=使用pyinstaller在64位系统打包32位exe文件&url=http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html&via=favorhau" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>这些天为了解决一些需求，解决python程序打包exe并且能够兼容xp系统的问题，看过许多在stackoverflow等网站上面的回答，觉得在实际的操作过程当中反而还会遇到过一些相对严重的问题，以至于无法解决。经过多种测试之后找到了一种比较有效的方法。</p>
+<h1 id="目前搜寻到的不太奏效方法"><a href="#目前搜寻到的不太奏效方法" class="headerlink" title="目前搜寻到的不太奏效方法"></a>目前搜寻到的不太奏效方法</h1><h2 id="使用anaconda安装pypiwin32等"><a href="#使用anaconda安装pypiwin32等" class="headerlink" title="使用anaconda安装pypiwin32等"></a>使用anaconda安装pypiwin32等</h2><p>这种方法实测之后效果并不一定好，因为安装过程当中也有可能会报错。并且会出现一些诸如no module found等问题</p>
+<h2 id="直接使用虚拟机-XP系统进行打包"><a href="#直接使用虚拟机-XP系统进行打包" class="headerlink" title="直接使用虚拟机+XP系统进行打包"></a>直接使用虚拟机+XP系统进行打包</h2><p>这样会出现的问题</p>
+<h1 id="有效的方法"><a href="#有效的方法" class="headerlink" title="有效的方法"></a>有效的方法</h1><h2 id="安装python3-4-4"><a href="#安装python3-4-4" class="headerlink" title="安装python3.4.4"></a>安装python3.4.4</h2><p>python3.4.4是最后支持Windows 32位的程序，下载地址：<br><a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-344/">https://www.python.org/downloads/release/python-344/</a><br><img src="https://img-blog.csdnimg.cn/41e2b7d1d39840c7b67d78295749ee1a.png" alt="图片"><br>在这里需要注意的是安装的时候需要配置环境变量，为了让效果最佳建议先卸载了原来的python版本，并且把此版本添加到环境变量当中</p>
+<h2 id="更新pip"><a href="#更新pip" class="headerlink" title="更新pip"></a>更新pip</h2><p>此版本对应的最高的pip是19.1.1版本，但是在实际的upgrade当中可能会因为权限冲突，导致一些问题。因此可以采用<code>get-pip.py</code>进行安装</p>
+<p>在Windows命令行输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://bootstrap.pypa.io/pip/3.4/get-pip.py -O get-pip.py</span><br></pre></td></tr></table></figure>
+<p>将<code>get-pip.py</code>下载到当前目录<br>然后再运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python get-pip.py</span><br></pre></td></tr></table></figure>
+<p>即可以完成pip19.1.1的安装</p>
+<h2 id="安装对应版本的pyinstaller"><a href="#安装对应版本的pyinstaller" class="headerlink" title="安装对应版本的pyinstaller"></a>安装对应版本的pyinstaller</h2><p>这一步是最关键的一步，也是经常会遇到问题的一步，不论是怎么安装<br>都会报错<code>Python: setup.py egg_info failed with error code 1 </code>错误，<code>Stackoverflow</code>上面的解决方法为：<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49985465/python-setup-py-egg-info-failed-with-error-code-1">https://stackoverflow.com/questions/49985465/python-setup-py-egg-info-failed-with-error-code-1</a><br>但是这样一样会报出相关的错误<br>然而在pyinstaller的github release上面可以看到的是符合版本的为pyinstaller3.0<br>故可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyinstaller==3.0</span><br></pre></td></tr></table></figure>
+<h2 id="打包应用"><a href="#打包应用" class="headerlink" title="打包应用"></a>打包应用</h2><p>在此之后即可以使用pyinstaller去打包32位的程序了。并且可尝试在Windows10中，使用兼容模式运行，尝试运行。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 DISQUS -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://favorhau.github.io/2021/10/16/%E4%BD%BF%E7%94%A8pyinstaller%E5%9C%A864%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%89%93%E5%8C%8532%E4%BD%8Dexe%E6%96%87%E4%BB%B6/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document;
+                var s = d.createElement('script');
+                s.src = '//.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+</script>
+
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2021/09/07/Restful%20API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
