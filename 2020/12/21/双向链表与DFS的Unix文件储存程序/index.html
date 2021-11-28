@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://.disqus.com"/>
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            双向链表与DFS的Unix文件储存程序 | 
+        
+        favorhau&#39;s blog
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="写在前面
+这是一篇关于python编写的小型文件储存程序，旨在于模拟Unix下ls、cd等的命令，在整一个中文互联网世界中，很难找到这样的实现方式，但是从数据结构和算法实现的角度来说存在许多价值。
+">
+    <meta name="keywords" content=",链表,DFS">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="favorhau&#39;s blog">
+    <meta name="msapplication-starturl" content="http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="favorhau&#39;s blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="双向链表与DFS的Unix文件储存程序 | favorhau&#39;s blog">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="写在前面
+这是一篇关于python编写的小型文件储存程序，旨在于模拟Unix下ls、cd等的命令，在整一个中文互联网世界中，很难找到这样的实现方式，但是从数据结构和算法实现的角度来说存在许多价值。
+">
+    <meta property="og:article:tag" content="链表"> <meta property="og:article:tag" content="DFS"> 
+
+    
+        <meta property="article:published_time" content="Mon Dec 21 2020 22:29:26 GMT+0800">
+        <meta property="article:modified_time" content="Sun Nov 28 2021 12:20:50 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html",
+    "headline": "双向链表与DFS的Unix文件储存程序",
+    "datePublished": "Mon Dec 21 2020 22:29:26 GMT+0800",
+    "dateModified": "Sun Nov 28 2021 12:20:50 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "favorhau",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "favorhau&#39;s blog",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",链表,DFS",
+    "description": "写在前面
+这是一篇关于python编写的小型文件储存程序，旨在于模拟Unix下ls、cd等的命令，在整一个中文互联网世界中，很难找到这样的实现方式，但是从数据结构和算法实现的角度来说存在许多价值。
+",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="favorhau's blog" type="application/atom+xml">
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="post-toc-number">2.</span> <span class="post-toc-text">题目</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E9%80%9A%E8%BF%87%E6%96%B9%E6%B3%95"><span class="post-toc-number">3.</span> <span class="post-toc-text">通过方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="post-toc-number">4.</span> <span class="post-toc-text">程序编写</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96PlainFile%E5%92%8CDirectory%E7%B1%BB"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">初始化PlainFile和Directory类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">列出文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">文件查找</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FileSystem%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%B1%BB"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">FileSystem文件系统类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%85%B6%E4%BB%96%E7%A4%BA%E4%BE%8B"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">其他示例</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%86%99%E5%9C%A8%E5%90%8E%E9%9D%A2"><span class="post-toc-number">5.</span> <span class="post-toc-text">写在后面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#%E5%8F%82%E8%80%83"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                双向链表与DFS的Unix文件储存程序
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>favorhau</strong>
+        <span>12月 21, 2020</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-none-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="mdl-menu__item"><a class="post_tag-none-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=双向链表与DFS的Unix文件储存程序&url=http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html&pic=http://favorhau.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=双向链表与DFS的Unix文件储存程序&url=http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html&via=favorhau" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><blockquote>
+<p>这是一篇关于python编写的小型文件储存程序，旨在于模拟Unix下<code>ls</code>、<code>cd</code>等的命令，在整一个中文互联网世界中，很难找到这样的实现方式，但是从数据结构和算法实现的角度来说存在许多价值。</p>
+</blockquote>
+<span id="more"></span>
+
+
+
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>开篇一个题，不得不佩服英文的作业阅读，能够很细节引导学生去实现某一样计算机程序，有一个循序渐进的过程，能够相当于指引一样，并且十分易懂。<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/onDJDe"><img src="https://z3.ax1x.com/2021/11/28/onDJDe.md.png" alt="onDJDe.md.png"></a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">This exercise is about object oriented programming in Python. Your task is to use objects to implement a representation of a simple file system. In computer science, a file system is a data structure that the Operating System uses to control how data is stored and retrieved from a hard (or solid state) drive. A file system could be represented as a tree, in which files and directories may be organised as a hierarchy, so that, directories may contain subdirectories. For example, a file gatos.jpg may be under Isaac directory, but that is a subdirectory of the home folder. In file systems, a directory is just a file, but it is a special kind of file that contains a list of files. Here is an example:</span><br><span class="line"></span><br><span class="line">Figure 1: An example of a file system as a tree. Directories are represented in circles, plain files in squared boxes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">You can test your code with the test in test-fs.py .</span><br><span class="line">1.Implement the following classes to represent a simple file system:</span><br><span class="line">File: everything is a file</span><br><span class="line">PlainFile: a plain file has a name (we are ignoring its contents)</span><br><span class="line">Directory: has a name and a list of files</span><br><span class="line">with constructors (i.e. 	init 	methods), so that, we can define the following directory tree (i.e. file system) based on the image above:</span><br><span class="line"></span><br><span class="line">&gt;&gt; root = Directory(&quot;root&quot;,</span><br><span class="line">[PlainFile(&quot;boot.exe&quot;), Directory(&quot;home&quot;,[</span><br><span class="line">Directory(&quot;thor&quot;, [PlainFile(&quot;hunde.jpg&quot;), PlainFile(&quot;quatsch.txt&quot;)]),</span><br><span class="line">Directory(&quot;isaac&quot;,   [PlainFile(&quot;gatos.jpg&quot;)])])])</span><br><span class="line"></span><br><span class="line">2.Add methods that print (recursively) the entire file system tree (i.e. define appropriate str methods). You don’t need to produce a pretty output</span><br><span class="line">- it is ok if it looks like this:</span><br><span class="line"></span><br><span class="line">Directory(root,[PlainFile(boot.exe),Directory(home, [Directory(thor,[PlainFile(hunde.jpg),PlainFile( quatsch.txt)],Directory(isaac,[PlainFile(gatos.jpg)]]]</span><br><span class="line"></span><br><span class="line">3.A File may have other attributes such as owner. If not indicated, the owner will be set to “default”. Implement a method chown(new_owner) that will allow you to modify the owner of a file or directory.</span><br><span class="line"></span><br><span class="line">&gt;&gt; file = PlainFile(&quot;boot.exe&quot;)</span><br><span class="line">&gt;&gt; folder = Directory(&quot;Downloads&quot;,[])</span><br><span class="line">&gt;&gt; print(f&#x27;file.owner: &#123;file.owner&#125;; folder: &#123;folder.owner&#125;&#x27;) file.owner: default; folder: default</span><br><span class="line">&gt;&gt; file.chown(&quot;root&quot;)</span><br><span class="line">&gt;&gt; folder.chown(&quot;isaac&quot;)</span><br><span class="line">&gt;&gt; print(f&#x27;file.owner: &#123;file.owner&#125;; folder: &#123;folder.owner&#125;&#x27;) file.owner: root; folder: isaac</span><br><span class="line"></span><br><span class="line">4.Implement a method ls() that recursively prints the content of the direc- tory and all the subdirectories, using indentation to represent how deep in the tree structure the file/directory is.</span><br><span class="line"></span><br><span class="line"># if we run ls() on the previous object root:</span><br><span class="line">&gt;&gt; root.ls() root</span><br><span class="line">boot.exe home</span><br><span class="line">thor</span><br><span class="line">hunde.jpg quatsch.txt</span><br><span class="line">isaac</span><br><span class="line">gatos.jpg	</span><br><span class="line">5.Implement a new class, FileSystem , which will allow us to navigate and manipulate a file system as if it was a UNIX file system. In particular, this class will allow us to keep track of the working directory. It should be initialised as follows:</span><br><span class="line"></span><br><span class="line">&gt;&gt; fs = FileSystem(root)</span><br><span class="line">(a)Implement a method pwd() that tells you the current working direc- tory. This might be useful later when moving across directories. It should work like this:</span><br><span class="line">&gt;&gt; fs.pwd() &#x27;root&#x27;</span><br><span class="line">(b)Implement ls() for the FileSystem class, so that, fs.ls() would work as question 4, but only printing from the current directory.</span><br><span class="line">(c)Implement a method cd() that will allow you to move to a different directory (changing the working directory). It should work as follows:</span><br><span class="line"># if you try to move to a non existing directory or to a file, # the method should complain:</span><br><span class="line">&gt;&gt; fs.cd(&quot;casa&quot;)</span><br><span class="line">The directory does not exist!</span><br><span class="line"># But you can move to an existing directory in the working directory.</span><br><span class="line">&gt;&gt; fs.cd(&quot;home&quot;)</span><br><span class="line"># if we now do ls(), you should only see the content in home:</span><br><span class="line">&gt;&gt; fs.ls() home</span><br><span class="line">thor</span><br><span class="line">hunde.jpg quatsch.txt</span><br><span class="line">isaac</span><br><span class="line">gatos.jpg</span><br><span class="line">Note that our filesystem is case sensitive, if the user searches for “Home”, the method won’t find the folder, because “home” is a dif- ferent folder.	</span><br><span class="line">(d)Implement methods to create files create_file(name) and directo- ries mkdir(name) within the working directory. Both methods should make sure that the file or directory to be created doesn’t already ex- ist within the working directory. Directories must be empty when creating them with mkdir(name). The method mkdir may allow you to indicate the owner when creating it, but files will share the owner of the working directory.</span><br><span class="line">(e)Modify the method cd() to allow us to go back to a parent directory. We will indicate the parent directory as “..”. For example:</span><br><span class="line">&gt;&gt; fs.cd(&quot;home&quot;)</span><br><span class="line">&gt;&gt; fs.pwd() &#x27;home&#x27;</span><br><span class="line">&gt;&gt; fs.cd(&quot;..&quot;)</span><br><span class="line">&gt;&gt; fs.pwd() &#x27;root&#x27;</span><br><span class="line">Note that applying fs.cd(&quot;..&quot;) in a root node with no parent di- rectory will have no effect, but won’t return an error. </span><br><span class="line">(f)Implement a method rm(name) that will allow you to remove a file from the current working directory. A directory can only be deleted if it is empty.</span><br><span class="line">&gt;&gt; fs.rm(&quot;home&quot;)</span><br><span class="line">Sorry, the directory is not empty	</span><br><span class="line">(g)Implement a method find(name) which tries to find a file name in a file system and returns the path to the first occurrence of the file if it finds it but False otherwise. For example:</span><br><span class="line">&gt;&gt; fs.find(&quot;gatos.jpg&quot;) &#x27;root/home/isaac/gatos.jpg&#x27;</span><br><span class="line">&gt;&gt; fs.find(&quot;thor&quot;) &#x27;root/home/thor&#x27;</span><br><span class="line">&gt;&gt; fs.find(&quot;unix&quot;) False</span><br><span class="line">Note that if you moved deeper in the directory tree using cd(), find(name) should only look from the current working directory.</span><br><span class="line">(h)The UNIX file system has many other operations that you could  implement here. Here are some ideas, but feel free to implement any functionality you find useful. Discuss ideas with us, but please add enough comments to understand what you are aiming to achieve.</span><br><span class="line">•chown -R: we have implemented chown() to change the owner of a single file or directory. Add an eﬀicient way to apply this function recursively to all files and sub directories of a folder.</span><br><span class="line">•Files and directories usually have permissions (read, write, and execution). Can you add that and functions to manipulate the permissions? (e.g. chmod).</span><br><span class="line">•Improve the ls() to show the owner, permissions (similar to what ls -l would do in UNIX.</span><br><span class="line">•In UNIX we can also move files from one directory to another using the command mv, indicating the destination PATH.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="通过方法"><a href="#通过方法" class="headerlink" title="通过方法"></a>通过方法</h1><p>想通过测试，需要走下面的代码并且全部pass才能完成通过程序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> file_system <span class="keyword">import</span> Directory, PlainFile, FileSystem</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 1&quot;</span>)</span><br><span class="line"><span class="comment"># question 1 should allow to create simple files and folders:</span></span><br><span class="line">file = PlainFile(<span class="string">&quot;boot.exe&quot;</span>)</span><br><span class="line">folder = Directory(<span class="string">&quot;Downloads&quot;</span>,[])</span><br><span class="line">    </span><br><span class="line">root = Directory(<span class="string">&quot;root&quot;</span>,[PlainFile(<span class="string">&quot;boot.exe&quot;</span>),</span><br><span class="line">               Directory(<span class="string">&quot;home&quot;</span>,[</span><br><span class="line">                   Directory(<span class="string">&quot;thor&quot;</span>,</span><br><span class="line">                      [PlainFile(<span class="string">&quot;hunde.jpg&quot;</span>),</span><br><span class="line">                       PlainFile(<span class="string">&quot;quatsch.txt&quot;</span>)]),</span><br><span class="line">                   Directory(<span class="string">&quot;isaac&quot;</span>,</span><br><span class="line">                      [PlainFile(<span class="string">&quot;gatos.jpg&quot;</span>)])])])</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 2&quot;</span>)</span><br><span class="line"><span class="comment"># question 2: implement the str</span></span><br><span class="line"><span class="built_in">print</span>(root)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Directory(root,[PlainFile(boot.exe),Directory(home,[Directory(thor,[PlainFile(hunde.jpg),PlainFile(quatsch.txt)],Directory(isaac,[PlainFile(gatos.jpg)]]]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 3&quot;</span>)</span><br><span class="line"><span class="comment"># question 3: test chown()</span></span><br><span class="line">file = PlainFile(<span class="string">&quot;boot.exe&quot;</span>)</span><br><span class="line">folder = Directory(<span class="string">&quot;Downloads&quot;</span>,[])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;file.owner: <span class="subst">&#123;file.owner&#125;</span>; folder: <span class="subst">&#123;folder.owner&#125;</span>&#x27;</span>)</span><br><span class="line">file.chown(<span class="string">&quot;root&quot;</span>)</span><br><span class="line">folder.chown(<span class="string">&quot;isaac&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;file.owner: <span class="subst">&#123;file.owner&#125;</span>; folder: <span class="subst">&#123;folder.owner&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 4&quot;</span>)</span><br><span class="line"><span class="comment">#question 4: ls() doesn&#x27;t return anything but prints.</span></span><br><span class="line">root.ls() </span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">root</span></span><br><span class="line"><span class="string">	boot.exe</span></span><br><span class="line"><span class="string">	home</span></span><br><span class="line"><span class="string">		thor</span></span><br><span class="line"><span class="string">			hunde.jpg</span></span><br><span class="line"><span class="string">			quatsch.txt</span></span><br><span class="line"><span class="string">		isaac</span></span><br><span class="line"><span class="string">			gatos.jpg</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># question 5: create FileSystem</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5a: basic filesystem and pwd&quot;</span>)</span><br><span class="line">fs = FileSystem(root)</span><br><span class="line"><span class="comment"># 5a:      </span></span><br><span class="line"><span class="built_in">print</span>(fs.pwd())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5b: ls in working directory&quot;</span>)</span><br><span class="line"><span class="comment"># 5b: </span></span><br><span class="line">fs.ls()</span><br><span class="line"><span class="comment"># 5c:  </span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5c: cd&quot;</span>)</span><br><span class="line"><span class="comment"># if you try to move to a non existing directory or to a file, </span></span><br><span class="line"><span class="comment"># the method should complain:</span></span><br><span class="line">fs.cd(<span class="string">&quot;casa&quot;</span>)</span><br><span class="line"><span class="comment"># But you can move to an existing directory in the working directory.</span></span><br><span class="line">fs.cd(<span class="string">&quot;home&quot;</span>)</span><br><span class="line"><span class="comment"># if we now do ls(), you should only see the content in home:</span></span><br><span class="line">fs.ls()</span><br><span class="line"><span class="comment"># you can&#x27;t go backwards yet...</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5d:  mkdir and create file&quot;</span>)</span><br><span class="line">fs = FileSystem(root) <span class="comment"># re-initialise fs</span></span><br><span class="line">fs.mkdir(<span class="string">&quot;test&quot;</span>) <span class="comment"># the owner of the directory should be &#x27;default&#x27; as not indicated.  fs.mkdir(&quot;test&quot;,&quot;isaac&quot;) would set the owner to isaac</span></span><br><span class="line">fs.cd(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">fs.create_file(<span class="string">&quot;test.txt&quot;</span>)</span><br><span class="line">fs.ls()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5e:  dot dot&quot;</span></span><br><span class="line"><span class="comment"># to test this properly, let&#x27;s create the entire file system using our previous functions!</span></span><br><span class="line">root = Directory(<span class="string">&quot;root&quot;</span>,[],owner=<span class="string">&quot;root&quot;</span>)</span><br><span class="line">fs = FileSystem(root)</span><br><span class="line">fs.create_file(<span class="string">&quot;boot.exe&quot;</span>)  <span class="comment"># when creating a file we do not need to indicate owner, it will be the same as the working directory</span></span><br><span class="line">fs.mkdir(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">fs.mkdir(<span class="string">&quot;home&quot;</span>,owner=<span class="string">&quot;root&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;home&quot;</span>)</span><br><span class="line">fs.mkdir(<span class="string">&quot;thor&quot;</span>,owner=<span class="string">&quot;thor&quot;</span>)</span><br><span class="line">fs.mkdir(<span class="string">&quot;isaac&quot;</span>,owner=<span class="string">&quot;isaac&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;thor&quot;</span>)</span><br><span class="line">fs.create_file(<span class="string">&quot;hunde.jpg&quot;</span>)</span><br><span class="line">fs.create_file(<span class="string">&quot;quatsch.txt&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;isaac&quot;</span>)</span><br><span class="line">fs.create_file(<span class="string">&quot;gatos.jpg&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">fs.ls()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5f:  rm&quot;</span>)</span><br><span class="line"></span><br><span class="line">fs.rm(<span class="string">&quot;test&quot;</span>) <span class="comment"># shouldn&#x27;t work!</span></span><br><span class="line">fs.cd(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">fs.rm(<span class="string">&quot;test.txt&quot;</span>)</span><br><span class="line">fs.cd(<span class="string">&quot;..&quot;</span>)</span><br><span class="line">fs.rm(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">fs.ls()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Testing question 5e:  find&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(fs.find(<span class="string">&quot;gatos.jpg&quot;</span>))</span><br><span class="line">fs.cd(<span class="string">&quot;home&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(fs.find(<span class="string">&quot;boot.exe&quot;</span>)) <span class="comment"># shouldn&#x27;t find it!</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="程序编写"><a href="#程序编写" class="headerlink" title="程序编写"></a>程序编写</h1><h2 id="初始化PlainFile和Directory类"><a href="#初始化PlainFile和Directory类" class="headerlink" title="初始化PlainFile和Directory类"></a>初始化PlainFile和Directory类</h2><p>初始化两个类利用了基础的<code>__init__</code>方法进行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">File</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Everything is a file</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, owner</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.name = name</span><br><span class="line">        self.owner = <span class="string">&quot;default&quot;</span></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PlainFile</span>(<span class="params">File</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    A plain file has a name ignoring its contents</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, owner=<span class="string">&quot;default&quot;</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(name, owner)</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">chown</span>(<span class="params">self, new_owner</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Allow to modify the owner of a file or directory.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.owner = new_owner</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Directory</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Includes a name and a list of files, recursively store the folder</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, root, args, owner=<span class="string">&quot;default&quot;</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.root = root</span><br><span class="line">        self.sub = args</span><br><span class="line">        self.owner = owner</span><br></pre></td></tr></table></figure>
+
+<p>显然这些初始化的过程并不困难，而是在后面的一些查找、遍历、递归当中。</p>
+<h2 id="列出文件"><a href="#列出文件" class="headerlink" title="列出文件"></a>列出文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_ls</span>(<span class="params">self, subs, level</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">       <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">       :params subs, the root Directory.</span></span><br><span class="line"><span class="string">       :return None, print (recursively) the entire file system tree.</span></span><br><span class="line"><span class="string">       &quot;&quot;&quot;</span></span><br><span class="line">       iter_text = <span class="string">&quot;&quot;</span>.join([<span class="string">&quot;    &quot;</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(level)])</span><br><span class="line">       _<span class="built_in">type</span> = <span class="built_in">type</span>(subs)</span><br><span class="line">       <span class="keyword">if</span> _<span class="built_in">type</span> == Directory:</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125;&#123;&#125;&quot;</span>.<span class="built_in">format</span>(iter_text, subs.root))</span><br><span class="line">           level += <span class="number">1</span></span><br><span class="line">           self._ls(subs.sub, level)</span><br><span class="line">       <span class="keyword">elif</span> _<span class="built_in">type</span> == PlainFile:</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125;&#123;&#125;&quot;</span>.<span class="built_in">format</span>(iter_text, subs.name))</span><br><span class="line">       <span class="keyword">elif</span> _<span class="built_in">type</span> == <span class="built_in">list</span>:</span><br><span class="line">           <span class="keyword">for</span> i <span class="keyword">in</span> subs:</span><br><span class="line">               self._ls(i, level)</span><br><span class="line">       </span><br><span class="line">       <span class="comment"># for sub in subs:</span></span><br><span class="line">       <span class="comment">#     if type(sub) == list:</span></span><br><span class="line">       <span class="comment">#         self.getrecursive_tree(sub)</span></span><br></pre></td></tr></table></figure>
+
+<p>文件列出需要定义<code>level</code>层数，表示递归的层级，并且根据不同数据类型的字典子集，输出不同的数据结果。</p>
+<h2 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h2><p>在文件查找当中，使用到DFS深度优先搜索的方式进行，以递归的方式进行实现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_find</span>(<span class="params">self, name, workspace</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Using DFS to find the File or Directory</span></span><br><span class="line"><span class="string">        If found ,return path otherwise return False</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        subs = workspace.sub</span><br><span class="line">        </span><br><span class="line">        namelist = []</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> subs:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">type</span>(file) == PlainFile:</span><br><span class="line">                namelist.append(file.name)</span><br><span class="line">            <span class="keyword">elif</span> <span class="built_in">type</span>(file) == Directory:</span><br><span class="line">                namelist.append(file.root)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> subs:</span><br><span class="line">            <span class="keyword">if</span> name <span class="keyword">in</span> namelist:</span><br><span class="line">                <span class="keyword">return</span> workspace.root + <span class="string">&quot;/&quot;</span> + name</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">type</span>(file) == Directory:</span><br><span class="line">                    <span class="keyword">if</span> self._find(name, file):</span><br><span class="line">                        <span class="keyword">return</span> workspace.root + <span class="string">&quot;/&quot;</span> + self._find(name, file)</span><br></pre></td></tr></table></figure>
+
+<h2 id="FileSystem文件系统类"><a href="#FileSystem文件系统类" class="headerlink" title="FileSystem文件系统类"></a>FileSystem文件系统类</h2><p>整片代码的精华就在于此文件系统类，一开始是根据指引进行编写，根据引导来构成代码程序，后面逐渐弄清楚的文件系统与其内部成员之间的关系，相当于一个双向链表（也类似于一个树形结构）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, workspace:Directory, parentstate = <span class="literal">None</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self._pwd = workspace.root</span><br><span class="line">        self._workspace = workspace</span><br><span class="line">        self._parentstate = parentstate</span><br><span class="line">        <span class="comment">#Use parents state to store &quot;father&quot; status</span></span><br></pre></td></tr></table></figure>
+
+<p>可见，其内部数据结构由三个成员组成：<code>_pwd</code>当前目录名称，<code>_wordspace</code>当前工作目录，<code>_parentstate</code>父目录，其中当前工作目录的数据类型为字典，用于储存当前环境下的工作路径，而<code>_parentstate</code>数据类型为<code>FileSystem</code>，那么文件系统直接的目录，怎么控制<code>cd</code>进入下级目录和进入上层目录呢？</p>
+<p>由于是第一次在类内写链表，也折腾了很久，而且这个并不像是一般类型的链表，比如说<code>Directory</code>下的数组就不一定都是一个数据类型，其内部还有<code>PlainFile</code>的数据类型。</p>
+<p>其<code>cd</code>用于控制当前目录的代码为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cd</span>(<span class="params">self, filename</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Change the workspace.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> filename == <span class="string">&quot;..&quot;</span> <span class="keyword">and</span> self._parentstate:</span><br><span class="line">            self._workspace = self._parentstate._workspace</span><br><span class="line">            self._pwd = self._parentstate._pwd</span><br><span class="line">            self._parentstate = self._parentstate._parentstate</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            subs = self._workspace.sub</span><br><span class="line">            namelist = []</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> subs:</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">type</span>(i) == PlainFile:</span><br><span class="line">                    namelist.append(<span class="literal">None</span>)</span><br><span class="line">                <span class="keyword">elif</span> <span class="built_in">type</span>(i) == Directory:</span><br><span class="line">                    namelist.append(i.root)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> filename <span class="keyword">in</span> namelist:</span><br><span class="line">                <span class="keyword">for</span> index, name <span class="keyword">in</span> <span class="built_in">enumerate</span>(namelist):</span><br><span class="line">                    <span class="keyword">if</span> filename == name:</span><br><span class="line">                        <span class="comment"># self._parentstate = FileSystem()</span></span><br><span class="line">                        new_filesys = FileSystem(self._workspace, self._parentstate)</span><br><span class="line">                        self._parentstate = new_filesys</span><br><span class="line">                        self._workspace = self._workspace.sub[index]</span><br><span class="line">                        self._pwd = self._workspace.root</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;The directory does not exist!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>cd</code> *..*则代表进入上层目录，而cd加文件夹则代表进入下级目录，那么最关键的问题在于：</p>
+<blockquote>
+<p>进入下级目录之后在目录当中新建文件，再返回上级目录，上级目录是否会包含下级目录的信息呢？还是单单一个新建的对象（地址不同）直接没有联系。</p>
+</blockquote>
+<p>因此需要处理好状态控制，处理好对象与对象之间互相的联系</p>
+<p>仔细阅读代码，在查找到下级目录的时候，先新建一个<code>FileSystem</code>对象，此对象的<code>_parentstate</code>就是当前目录下的父目录，然后再更新<code>_parentstate</code>为当前的父目录。</p>
+<p>因为<code>FileSystem</code>的<code>_workspace</code>当中，其指针地址一致，因此不会出现刚刚那样的问题，而如果要作出简短的总结，则是</p>
+<blockquote>
+<p>FileSystem是用于控制状态的类， 里面含有指向固定地址的指针。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/onc30U"><img src="https://z3.ax1x.com/2021/11/28/onc30U.md.png" alt="onc30U.md.png"></a></p>
+<h3 id="其他示例"><a href="#其他示例" class="headerlink" title="其他示例"></a>其他示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#模拟案例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Content</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, data</span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.data = data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Link</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,data , pre = <span class="literal">None</span>, <span class="built_in">next</span> = <span class="literal">None</span></span>) -&gt; <span class="literal">None</span>:</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.pre = pre</span><br><span class="line">        self.<span class="built_in">next</span> = <span class="built_in">next</span></span><br><span class="line">        self.data = data</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ls</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.data = self.pre.data</span><br><span class="line">        self.pre = self.pre.pre</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cd</span>(<span class="params">self</span>):</span></span><br><span class="line">        new = Link(self.data, self.pre)</span><br><span class="line">        self.pre = new</span><br><span class="line">        self.data = self.data.data[<span class="number">2</span>]</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">link = Link(Content([<span class="number">1</span>,<span class="number">2</span>, Content([<span class="number">3</span>, <span class="number">4</span>])]))</span><br><span class="line"><span class="built_in">print</span>(link.data.data)</span><br><span class="line">link.cd()</span><br><span class="line">link.data.data.append(<span class="number">8</span>)</span><br><span class="line">link.ls()</span><br><span class="line"><span class="built_in">print</span>(link.data.data[<span class="number">2</span>].data)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h1><p>虽然这只是使用python语言实现的一个很简单的文件系统，但是里面包含了如<code>DFS</code>、<code>双向链表</code>以及含有使用<code>__str__</code>重写函数的点，</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><p>《回溯算法实现在特定路径下查找文件》</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leviopku/article/details/121499215">https://blog.csdn.net/leviopku/article/details/121499215</a></p>
+</li>
+<li><p> 《Python-深入理解递归函数中的return返回值》</p>
+</li>
+</ol>
+<p>​       <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40476348/article/details/98602498#:~:text=python%20">https://blog.csdn.net/weixin_40476348/article/details/98602498#:~:text=python%20</a></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 DISQUS -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://favorhau.github.io/2020/12/21/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E4%B8%8EDFS%E7%9A%84Unix%E6%96%87%E4%BB%B6%E5%82%A8%E5%AD%98%E7%A8%8B%E5%BA%8F/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document;
+                var s = d.createElement('script');
+                s.src = '//.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+</script>
+
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2020/12/21/PHP+MYSQL%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E5%8A%9F%E8%83%BD/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2020/12/18/20201218%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0---sql%EF%BC%88%E4%B8%89%EF%BC%89/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="favorhau's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        favorhau@gmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="favorhau@gmail.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2021/10/">十月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/09/">九月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/07/">七月 2021<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/01/">一月 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/12/">十二月 2020<span class="sidebar_archives-count">15</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/CTF%E6%B1%82%E7%94%9F%E4%B9%8B%E8%B7%AF/">CTF求生之路<span class="sidebar_archives-count">13</span></a></li><li><a class="sidebar_archives-link" href="/categories/favorhau/">favorhau<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/restful-api/">restful api<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/restful-api/api/">api<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/restful-api/api/%E5%90%8E%E7%AB%AF/">后端<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E6%95%99%E7%A8%8B/">教程<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/cookies/">cookies<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%A0%81%E5%86%9C%E6%97%A5%E5%B8%B8/">码农日常<span class="sidebar_archives-count">6</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+        <a href="https://twitter.com/twitter" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-twitter">
+                <span class="visuallyhidden">Twitter</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Facebook -->
+    
+        <a href="https://www.facebook.com/facebook" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-facebook">
+                <span class="visuallyhidden">Facebook</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Google + -->
+    
+        <a href="https://www.google.com/" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-gplus">
+                <span class="visuallyhidden">Google Plus</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;favorhau's blog
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+   <!-- 使用 DISQUS js 代码 -->
+<script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 0000;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
